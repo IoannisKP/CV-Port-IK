@@ -27,7 +27,7 @@ export const education = [
 
 export const projects = [
   {
-    id:'hiroom', title:'HIROOM', ordinal:'01', eyebrow:'Product discovery / Team project', category:'Product management', year:'2026', status:'Student prototype', accent:'#d2ee75', ink:'#1b291d',
+    id:'hiroom', title:'HIRoom', ordinal:'01', eyebrow:'Product discovery / Team project', category:'Product management', year:'2026', status:'Student prototype', accent:'#d2ee75', ink:'#1b291d',
     intro:'A better room-booking experience starts before the first click.',
     teaser:'Researching the everyday friction of booking rooms at Hyper Island, then turning feedback into clearer product priorities.',
     role:'Research, synthesis, user flows and prioritisation within a student team',
@@ -35,7 +35,7 @@ export const projects = [
     highlight:{num:'10',label:'moderated booking-task participants',qualifier:'Additional staff-oriented and written feedback reviewed separately'},
     links:[{label:'Explore the prototype',url:'https://book-an-island.lovable.app'}], visual:'hiroom',
     short:[
-      {label:'The challenge',title:'Booking a room should not feel like an investigation.',body:'Our team explored the friction in Hyper Island’s existing Humly booking experience and built a prototype called HIROOM. The goal was to make it easier to find a suitable space, understand availability and manage bookings.'},
+      {label:'The challenge',title:'Booking a room should not feel like an investigation.',body:'Our team explored the friction in Hyper Island’s existing Humly booking experience and built a prototype called HIRoom. The goal was to make it easier to find a suitable space, understand availability and manage bookings.'},
       {label:'My work',title:'Turn what people said into decisions.',body:'I worked across interviews, research patterns, user flows, prototype testing and a prioritized Linear backlog. We separated observed problems from proposed improvements and identified what still needed validation.'},
       {label:'Evidence',title:'Small but concrete signals.',body:'Ten participants completed moderated booking tasks. A separate staff/calendar walkthrough and written UX feedback exposed confusion around capacity, times, navigation, availability counts and editing bookings.'},
       {label:'Takeaway',title:'Start with the friction, not the feature.',body:'The project sharpened my understanding of how research should change priorities. It remains a student prototype, not a launched service or a measured business success.'}
