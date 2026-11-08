@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
 /* CV / Port IK. Editorial portfolio layout inspired by navigation and page rhythm of
    Charles Honig, with original content, visuals and identity. */
@@ -513,3 +513,53 @@ body,h1,h2,h3,h4{font-family:var(--sans)}
  .footer{background:#141414;color:#f7f7f7}
 }
 @media(prefers-reduced-motion:reduce){.radio-phone{transition:none;transform:none!important}}
+
+
+/* Consistent hero typography and authentic, individually colored project artwork. */
+.hero-title,.hero-title .hero-line,.hero-title em,.hero-title .orange-type{
+  font-family:'Manrope',Arial,Helvetica,sans-serif;
+  font-size:inherit;
+  font-weight:500;
+  letter-spacing:inherit;
+  line-height:inherit;
+  font-style:normal;
+}
+.hero-title{font-size:clamp(2.5rem,4.85vw,6.1rem)}
+@media(max-width:1050px){.hero-title{font-size:clamp(3rem,7vw,6rem)}}
+@media(max-width:800px){.hero-title{font-size:clamp(2.7rem,8vw,5.1rem)}}
+@media(max-width:550px){.hero-title{font-size:clamp(2.5rem,9.5vw,3.9rem)}}
+/* Site typography is Manrope only. */
+:root{--sans:'Manrope',Arial,Helvetica,sans-serif;--mono:var(--sans);--serif:var(--sans)}
+body,h1,h2,h3,h4,p,button,input,textarea{font-family:var(--sans)}
+/* Only project artwork has color; global interface stays monochrome. */
+.art-scribe-photo,.art-agent,.art-compass,.art-circles{filter:none!important}
+.art-scribe-photo{background:#b3c9fa!important;color:#172849;position:relative;display:flex;align-items:center;justify-content:center}
+.scribe-shot-surface{width:88%;height:80%;background:#090a0e;overflow:hidden;border:1px solid #91a1c8;border-radius:12px;box-shadow:19px 24px 0 #1e305222,0 31px 72px #1e305233;transform:rotate(-2deg);transition:transform .65s cubic-bezier(.2,.76,.2,1);will-change:transform}
+.scribe-shot-surface img{width:100%;height:100%;object-fit:contain;object-position:center;background:#070707;display:block}
+.gallery-tile:hover .scribe-shot-surface,.project-feature-visual:hover .scribe-shot-surface{transform:rotate(0deg) scale(1.03)}
+.art-scribe-photo .visual-label,.art-scribe-photo .visual-footnote{color:#172849}
+.case-visual-wrap .scribe-shot-surface{width:min(91%,1260px);height:82%;transform:rotate(-.5deg)}
+.art-agent{background:#e4b5f8!important;color:#281634}
+.agent-interface{background:#192023;border-color:#0e1c1d;color:#d4e9d3;box-shadow:22px 26px 0 #43234d33}
+.agent-center em{font-family:var(--sans);font-style:normal;color:#e4bff3}
+.agent-cross{color:#d5efb1}
+.agent-hint{border-color:#92bcaa}
+.art-compass{background:#ffdda9!important;color:#352819}
+.compass-board{background:#f7f5ee;border-color:#8b7b66;box-shadow:24px 24px 0 #82654335}
+.compass-side{background:#343e37;color:#e7e8d7}
+.compass-side span:first-child{color:#daeca9}
+.compass-side span:nth-child(2){color:#d4f593}
+.compass-note{background:#fffdfa;border-color:#bac1b9}
+.compass-note small{color:#6d766e}
+.art-circles{background:#f6b4ac!important;color:#51232c}
+.circle{border-color:#792a3b}
+.circle-core{background:#2d1720;color:#ffc7b9}
+.circle-dot{background:#742f3d}
+.scribe-artifacts .actual-gallery img{display:block;width:100%;height:auto;aspect-ratio:1.27;object-fit:contain;background:#080808}
+.scribe-artifacts .actual-gallery figure{background:#fafafa}
+.scribe-artifacts .actual-gallery figcaption{color:#4e4e4e}
+@media(max-width:640px){
+ .scribe-shot-surface{width:94%;height:73%;transform:rotate(-1deg)}
+ .case-visual-wrap .scribe-shot-surface{width:96%;height:82%}
+}
+@media(prefers-reduced-motion:reduce){.scribe-shot-surface{transition:none;transform:none!important}}
