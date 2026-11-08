@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 /* CV / Port IK. Editorial portfolio layout inspired by navigation and page rhythm of
    Charles Honig, with original content, visuals and identity. */
-:root{--ink:#f3f0e9;--paper:#0b0b0e;--paper2:#111115;--cream:#f4f0e8;--lime:#DFFF3C;--muted:#9a99a0;--rule:#36353b;--page-pad:clamp(22px,5.4vw,90px);--mono:'IBM Plex Mono',monospace;--sans:'Manrope','DM Sans',Arial,sans-serif;--serif:'Instrument Serif',Georgia,serif}
+:root{--ink:#f3f0e9;--paper:#0b0b0e;--paper2:#111115;--cream:#f4f0e8;--lime:#DFFF3C;--muted:#9a99a0;--rule:#36353b;--page-pad:clamp(22px,5.4vw,90px);--mono:'IBM Plex Mono',monospace;--sans:'Manrope','DM Sans',Arial,sans-serif;--serif:Georgia,'Times New Roman',serif}
 html{scroll-padding-top:115px}
 body{background:#0b0b0e;color:#f3f0e9;font-family:var(--sans)}
 ::selection{background:#DFFF3C;color:#0a0a0c}
@@ -28,9 +28,9 @@ body{background:#0b0b0e;color:#f3f0e9;font-family:var(--sans)}
 .hero-introduction{min-width:0}
 .hero-kicker{margin:0 0 34px;color:#b5b1b5}
 .hero-availability{display:inline-block;width:7px;height:7px;border-radius:50%;background:#DFFF3C;margin-right:12px;box-shadow:0 0 0 4px #DFFF3C19}
-.hero-title{font-size:clamp(2.6rem,5.25vw,6.65rem);line-height:1.11;letter-spacing:-.066em;font-weight:500;max-width:1120px}
+.hero-title{font-family:var(--sans);font-size:clamp(2.6rem,5.25vw,6.65rem);line-height:1.11;letter-spacing:-.066em;font-weight:500;max-width:1120px}
 .hero-line{white-space:normal;animation:title-rise .84s cubic-bezier(.19,.7,.2,1) both}
-.hero-title em{font-family:var(--serif);font-style:normal;letter-spacing:-.05em;color:#DFFF3C}
+.hero-title em{font-family:inherit;font-style:normal;font-size:.88em;font-weight:500;letter-spacing:-.066em;color:#DFFF3C}
 .hero-title .orange-type{color:#DFFF3C}
 .hero-description{color:#bdbabf;font-size:clamp(.95rem,1.12vw,1.11rem);line-height:1.78;margin:34px 0 25px;max-width:675px}
 .hero-explore{display:inline-flex;align-items:center;gap:16px;padding:14px 0;font-weight:700;font-size:.84rem;border-bottom:1px solid #A8BC65;transition:gap .3s,border-color .3s}
