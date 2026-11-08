@@ -50,7 +50,7 @@ export const projects = [
     ]
   },
   {
-    id:'scribe', title:'Scribe', ordinal:'02', eyebrow:'Independent product / macOS', category:'Product delivery', year:'2026', status:'Working pre-release app', accent:'#e5e5e5', ink:'#161616',
+    id:'scribe', title:'Scribe', ordinal:'02', eyebrow:'Independent product / macOS', category:'Product delivery', year:'2026', status:'Working pre-release app', accent:'#b3c9fa', ink:'#1c2853',
     intro:'A meeting recorder where the recording matters more than the demo.',
     teaser:'Defining and verifying a privacy-conscious macOS recorder with local transcription and recoverable files.',
     role:'Product scope, acceptance criteria, AI-agent direction and verification', scope:'Product decisions · AI-assisted build · QA',
@@ -72,7 +72,7 @@ export const projects = [
     ]
   },
   {
-    id:'agent-x', title:'Agent X', ordinal:'03', eyebrow:'UX research / Final course project', category:'Discovery & UX', year:'2026', status:'Researched concept', accent:'#e5e5e5', ink:'#161616',
+    id:'agent-x', title:'Agent X', ordinal:'03', eyebrow:'UX research / Final course project', category:'Discovery & UX', year:'2026', status:'Researched concept', accent:'#e4b5f8', ink:'#43234d',
     intro:'Give players a clue without taking away the discovery.',
     teaser:'Researching how new Escape from Tarkov players recover from failure, without removing the game’s challenge.',
     role:'Interviews, synthesis, concept design, wireframes and evaluation', scope:'User research · Journey mapping · Think-aloud testing',
@@ -94,7 +94,7 @@ export const projects = [
     ]
   },
   {
-    id:'pm-compass', title:'PM Compass', ordinal:'04', eyebrow:'Independent product / In progress', category:'Product strategy', year:'2026, Ongoing', status:'In progress · Private', accent:'#e5e5e5', ink:'#161616',
+    id:'pm-compass', title:'PM Compass', ordinal:'04', eyebrow:'Independent product / In progress', category:'Product strategy', year:'2026, Ongoing', status:'In progress · Private', accent:'#ffdba6', ink:'#543416',
     intro:'A small tool for the big question: what do I do next?',
     teaser:'Designing a practical companion that helps an early-career PM recover context, prepare and move from theory into action.',
     role:'Product vision, information architecture, prioritization, Lovable builds and testing', scope:'Strategy · Information architecture · Iteration',
@@ -116,7 +116,7 @@ export const projects = [
     ]
   },
   {
-    id:'tedx-circles', title:'TEDx Circles', ordinal:'05', eyebrow:'Community concept / Team project', category:'Concept validation', year:'2026', status:'Student concept & pitch', accent:'#e5e5e5', ink:'#161616',
+    id:'tedx-circles', title:'TEDx Circles', ordinal:'05', eyebrow:'Community concept / Team project', category:'Concept validation', year:'2026', status:'Student concept & pitch', accent:'#f7a8a8', ink:'#51232c',
     intro:'What if the conversation continued after the event?',
     teaser:'Exploring a smaller, recurring format for meaningful connection around TEDxStockholm ideas.',
     role:'Team discovery, concept development and pitch collaboration', scope:'Community research · Value proposition · Concept testing',
