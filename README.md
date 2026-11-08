@@ -7,7 +7,7 @@ A standalone, editorial portfolio for Ioannis Koupidis. This project does **not*
 - A fully responsive homepage, About page, digital CV page and five case studies.
 - Working **Full / TL;DR** reading modes on every case study. The URL stores the selected mode as `?view=tldr`.
 - Sticky chapter navigation, animated project covers, scroll progress, in-page navigation, responsive menus and reduced-motion support.
-- Current uploaded PDF (`assets/Ioannis-Koupidis-CV.pdf`) and real, verifiable professional information.
+- Download link to the existing verified PDF hosted in the original `IoannisK_CV` repository, plus real professional information. The original PDF is not duplicated in this repository.
 - Schematic cover illustrations, explicitly labeled as illustrations rather than fake app screenshots.
 - All content editable in `data.js`. Layout and behavior live in `app.js`; styles in `styles.css`.
 
@@ -23,22 +23,12 @@ Open http://localhost:8000/ in your browser. Do not open `index.html` as a `file
 
 ## Publishing to GitHub Pages
 
-1. Create a **new** public repository named `CV-Port-IK` under `IoannisKP` (GitHub repository names cannot contain spaces).
-2. Upload or push **the contents of this folder**, not the parent directory.
-3. In repository **Settings → Pages**, choose **Deploy from a branch**, `main`, `/ (root)`.
-4. Your preview URL will normally be `https://ioanniskp.github.io/CV-Port-IK/` once Pages finishes deployment.
-5. Keep your existing `IoannisK_CV` repo and deployed site unchanged.
+1. The site files are already committed to the new repository `IoannisKP/CV-Port-IK` on `main`.
+2. In repository **Settings → Pages**, select **Deploy from a branch**, `main`, `/ (root)` and save.
+3. Once GitHub Pages publishes, the site URL should be `https://ioanniskp.github.io/CV-Port-IK/`.
+4. Keep your existing `IoannisK_CV` repository and deployed site unchanged.
 
-Example from a local checkout, after creating the empty repo:
-
-```bash
-git init
-git add .
-git commit -m "Initial CV version 3 portfolio"
-git branch -M main
-git remote add origin https://github.com/IoannisKP/CV-Port-IK.git
-git push -u origin main
-```
+For local edits, clone `https://github.com/IoannisKP/CV-Port-IK.git` and push changes to the `main` branch.
 
 ## Before publishing publicly
 
