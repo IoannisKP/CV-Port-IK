@@ -27,7 +27,7 @@ export const education = [
 
 export const projects = [
   {
-    id:'hiroom', title:'HIRoom', ordinal:'01', eyebrow:'Product discovery / Team project', category:'Product management', year:'2026', status:'Student prototype', accent:'#d2ee75', ink:'#1b291d',
+    id:'hiroom', title:'HIRoom', ordinal:'01', eyebrow:'Product discovery / Team project', category:'Product management', year:'2026', status:'Student prototype', accent:'#e5e5e5', ink:'#161616',
     intro:'A better room-booking experience starts before the first click.',
     teaser:'Researching the everyday friction of booking rooms at Hyper Island, then turning feedback into clearer product priorities.',
     role:'Research, synthesis, user flows and prioritisation within a student team',
@@ -50,7 +50,7 @@ export const projects = [
     ]
   },
   {
-    id:'scribe', title:'Scribe', ordinal:'02', eyebrow:'Independent product / macOS', category:'Product delivery', year:'2026', status:'Working pre-release app', accent:'#b3c9fa', ink:'#1c2853',
+    id:'scribe', title:'Scribe', ordinal:'02', eyebrow:'Independent product / macOS', category:'Product delivery', year:'2026', status:'Working pre-release app', accent:'#e5e5e5', ink:'#161616',
     intro:'A meeting recorder where the recording matters more than the demo.',
     teaser:'Defining and verifying a privacy-conscious macOS recorder with local transcription and recoverable files.',
     role:'Product scope, acceptance criteria, AI-agent direction and verification', scope:'Product decisions · AI-assisted build · QA',
@@ -72,7 +72,7 @@ export const projects = [
     ]
   },
   {
-    id:'agent-x', title:'Agent X', ordinal:'03', eyebrow:'UX research / Final course project', category:'Discovery & UX', year:'2026', status:'Researched concept', accent:'#e4b5f8', ink:'#43234d',
+    id:'agent-x', title:'Agent X', ordinal:'03', eyebrow:'UX research / Final course project', category:'Discovery & UX', year:'2026', status:'Researched concept', accent:'#e5e5e5', ink:'#161616',
     intro:'Give players a clue without taking away the discovery.',
     teaser:'Researching how new Escape from Tarkov players recover from failure, without removing the game’s challenge.',
     role:'Interviews, synthesis, concept design, wireframes and evaluation', scope:'User research · Journey mapping · Think-aloud testing',
@@ -94,7 +94,7 @@ export const projects = [
     ]
   },
   {
-    id:'pm-compass', title:'PM Compass', ordinal:'04', eyebrow:'Independent product / In progress', category:'Product strategy', year:'2026, Ongoing', status:'In progress · Private', accent:'#ffdba6', ink:'#543416',
+    id:'pm-compass', title:'PM Compass', ordinal:'04', eyebrow:'Independent product / In progress', category:'Product strategy', year:'2026, Ongoing', status:'In progress · Private', accent:'#e5e5e5', ink:'#161616',
     intro:'A small tool for the big question: what do I do next?',
     teaser:'Designing a practical companion that helps an early-career PM recover context, prepare and move from theory into action.',
     role:'Product vision, information architecture, prioritization, Lovable builds and testing', scope:'Strategy · Information architecture · Iteration',
@@ -116,7 +116,7 @@ export const projects = [
     ]
   },
   {
-    id:'tedx-circles', title:'TEDx Circles', ordinal:'05', eyebrow:'Community concept / Team project', category:'Concept validation', year:'2026', status:'Student concept & pitch', accent:'#f7a8a8', ink:'#51232c',
+    id:'tedx-circles', title:'TEDx Circles', ordinal:'05', eyebrow:'Community concept / Team project', category:'Concept validation', year:'2026', status:'Student concept & pitch', accent:'#e5e5e5', ink:'#161616',
     intro:'What if the conversation continued after the event?',
     teaser:'Exploring a smaller, recurring format for meaningful connection around TEDxStockholm ideas.',
     role:'Team discovery, concept development and pitch collaboration', scope:'Community research · Value proposition · Concept testing',
@@ -137,10 +137,31 @@ export const projects = [
       {label:'Reflection',title:'Run a circle. Then learn.',body:['An appropriate next experiment would be one or two small gatherings with a simple measure of attendance, contribution, satisfaction and interest in returning.','The project reinforced the value of testing the smallest real version of a service before planning an entire community program.'], take:'A pilot tests participation better than a survey alone.'}
     ]
   }
+  ,
+  {
+    id:'radio', title:'Radio', ordinal:'06', eyebrow:'Independent iOS experiment / Product delivery', category:'Product execution', year:'2026', status:'Working build, not released', accent:'#e5e5e5', ink:'#161616',
+    intro:'Eight hours to build. Real-device testing to learn what works.',
+    teaser:'A tightly scoped iOS radio player, developed with separate AI implementation and review agents and verified on a physical iPhone.',
+    role:'Product scope, agent direction, acceptance and device testing',
+    scope:'Scope definition · AI-assisted delivery · Independent QA',
+    highlight:{num:'08h',label:'from written scope to working handover build',qualifier:'A time-boxed personal project, not a public launch'},
+    links:[{label:'View project repository',url:'https://github.com/IoannisKP/Radio-iOS-app'},{label:'Earlier case study',url:'https://ioanniskp.github.io/IoannisK_CV/?lang=en#work/radio'}],
+    visual:'radio',
+    short:[
+      {label:'The challenge',title:'Build the essential listening experience in one day.',body:'I scoped an iOS radio player around browsing stations, searching and playback. The eight-hour limit made explicit trade-offs and acceptance criteria essential.'},
+      {label:'My role',title:'Define, direct, review and verify.',body:'I wrote the scope and acceptance conditions, directed an implementation agent, used a separate review agent and tested the handover build on a physical iPhone.'},
+      {label:'Evidence',title:'The real device revealed what the simulator missed.',body:'An independent review reported four blocking faults. The physical iPhone test also exposed a network failure not encountered in the simulator. A documented handover included 24 passing automated tests.'},
+      {label:'Learning',title:'Shipping a build is not the same as shipping a product.',body:'Radio was a working but unreleased build. The project established a more reliable habit of defining expectations, reviewing independently and verifying in real conditions before claiming completion.'}
+    ],
+    chapters:[
+      {label:'Challenge',title:'One day. One focused product journey.',body:['The experiment was to scope and produce a usable internet radio player within eight hours. The core user journey was straightforward: browse or search for a station, start listening and know what is playing.','I consciously excluded features outside the core listening experience. A short time box increases the need for clearly stated requirements rather than replacing them.'],take:'A narrow scope helped keep the essential listening experience central.'},
+      {label:'Product scope',title:'Define acceptance before implementation.',body:['I documented the required browsing, searching and playback behavior and the conditions that would count as an acceptable build.','The scope was meant to guide implementation and make the result objectively reviewable, not simply to produce an attractive interface within a deadline.'],take:'Clear boundaries made an eight-hour experiment possible.'},
+      {label:'Delivery',title:'Separate implementation from review.',body:['I directed an AI implementation agent and a separate review agent. The reviewer could identify blocking faults instead of assuming work described as complete was correct.','I remained responsible for product decisions and acceptance. The project was AI-assisted development, not a claim that I personally wrote every line of the native iOS code.'],take:'Independent review introduced a critical check before acceptance.'},
+      {label:'Verification',title:'A physical iPhone changed the result.',body:['The independent audit identified four blocking faults. A subsequent test on a physical iPhone exposed network behavior that did not fail in the simulator.','At handover, the project recorded 24 passing automated tests. That snapshot does not establish complete reliability or prove all identified issues have been resolved.'],take:'Real-world verification and automation answer different questions.'},
+      {label:'Outcome',title:'A working build, not a released app.',body:['Radio produced a working handover build in an eight-hour exercise, but it was not released or validated with actual listeners.','Before public availability, it would require reliability checks, clear documentation of outstanding faults and evaluation of the listening experience with intended users.'],take:'A functioning prototype is evidence of delivery, not product-market value.'},
+      {label:'Reflection',title:'A process I could take into the next project.',body:['The define, build, independently review and test loop became a repeatable way to approach AI-assisted projects. I refined it further when developing Scribe.','The lesson was to make real-user conditions part of acceptance: the device, network, playback and saved state matter more than a passing demo.'],take:'Define, build, review and verify before claiming the product works.'}
+    ]
+  }
 ];
 
-export const secondary = [
-  {title:'Radio',kind:'iOS · Personal experiment',text:'An eight-hour scope-and-delivery exercise. Independent review and testing on a real phone uncovered faults the simulator had missed.',link:'https://github.com/IoannisKP/Radio-iOS-app',label:'Explore repository'}
-];
-
-export const visualNames = {hiroom:'Booking clarity',scribe:'Meeting, saved',agent:'Guidance, not answers',compass:'What’s next?',circles:'Ideas become conversations'};
+export const visualNames = {hiroom:'Booking clarity',scribe:'Meeting, saved',agent:'Guidance, not answers',compass:'What’s next?',circles:'Ideas become conversations',radio:'A listening experiment'};
