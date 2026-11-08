@@ -286,3 +286,7 @@ body{background:#0b0b0e;color:#f3f0e9;font-family:var(--sans)}
 .hiroom-gallery-item figcaption strong{font-size:.83rem;color:#242022;font-weight:700}
 .hiroom-gallery-item figcaption span{font-size:.72rem;color:#726e6a;line-height:1.5}
 @media(max-width:640px){.hiroom-gallery{grid-template-columns:1fr}.hiroom-gallery-item-2{grid-column:auto}.hiroom-gallery-item-2 img{aspect-ratio:1.37}.art-hiroom-screenshot .hiroom-shot{width:92%;height:72%}.case-visual-wrap .art-hiroom-screenshot .hiroom-shot{width:94%;height:75%}.art-hiroom-screenshot .visual-label{font-size:.48rem}}
+
+/* Override the original stylesheet's generic .wordmark span color rule. */
+.header .wordmark .brand-name{color:#fff;margin-left:0;font-size:.84rem;letter-spacing:-.025em}
+.header .wordmark .brand-name small{color:#aaa5a4}
