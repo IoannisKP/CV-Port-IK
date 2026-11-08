@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap');
 
 /* CV / Port IK. Editorial portfolio layout inspired by navigation and page rhythm of
    Charles Honig, with original content, visuals and identity. */
-:root{--ink:#f3f0e9;--paper:#0b0b0e;--paper2:#111115;--cream:#f4f0e8;--lime:#DFFF3C;--muted:#9a99a0;--rule:#36353b;--page-pad:clamp(22px,5.4vw,90px);--mono:'IBM Plex Mono',monospace;--sans:'Manrope','DM Sans',Arial,sans-serif;--serif:'Playfair Display',Georgia,serif}
+:root{--ink:#f3f0e9;--paper:#0b0b0e;--paper2:#111115;--cream:#f4f0e8;--lime:#DFFF3C;--muted:#9a99a0;--rule:#36353b;--page-pad:clamp(22px,5.4vw,90px);--mono:'IBM Plex Mono',monospace;--sans:'Manrope','DM Sans',Arial,sans-serif;--serif:'Instrument Serif',Georgia,serif}
 html{scroll-padding-top:115px}
 body{background:#0b0b0e;color:#f3f0e9;font-family:var(--sans)}
 ::selection{background:#DFFF3C;color:#0a0a0c}
