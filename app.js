@@ -43,7 +43,7 @@ function hiroomGalleryMarkup(){
 function home(){
  return `<main class="honig-home">
  <section class="home-hero" id="home"><div class="hero-layout"><div class="hero-introduction"><p class="eyebrow hero-kicker"><span class="hero-availability"></span> FOUNDER × PRODUCT MANAGEMENT STUDENT</p><h1 class="hero-title"><span class="hero-line"><em>Ioannis Koupidis</em> is</span><span class="hero-line">a founder building</span><span class="hero-line">better <span class="orange-type">digital products.</span></span></h1><p class="hero-description">I spent 13 years building healthcare services in Sweden. Now I'm applying that experience to product discovery, user research and hands-on digital products at Hyper Island.</p><a href="#work" class="hero-explore">Explore my work <span>↘</span></a></div><div class="hero-summary"><div class="hero-stat"><strong>13<span>+</span></strong><p>Years building and leading healthcare services</p></div><div class="hero-stat"><strong>05</strong><p>Featured case studies across discovery, UX and product building</p></div><span class="hero-side-note">BASED IN STOCKHOLM · OPEN TO PRODUCT OPPORTUNITIES</span></div></div><div class="hero-bottom-line"><span>01 / PORTFOLIO</span><span>SCROLL TO THE PROJECTS <span aria-hidden="true">↓</span></span></div></section>
- <section class="work-gallery" id="work" aria-label="Featured project gallery"><div class="gallery-top"><span class="eyebrow">SELECTED PROJECTS / FIVE STORIES</span><span class="eyebrow">HOVER OR TAP TO EXPLORE ↓</span></div><div class="work-gallery-grid">${projects.map((p,i)=>`<a class="gallery-tile gallery-tile-${i+1}" href="${projectURL(p.id)}" aria-label="View ${esc(p.title)} case study"><div class="gallery-art">${projectArt(p)}</div><div class="gallery-overlay"><span>${esc(p.eyebrow)}</span><strong>${esc(p.title)}</strong><b aria-hidden="true">↗</b></div></a>`).join('')}<a class="gallery-tile gallery-extra" href="${path('about/')}" aria-label="Read more about Ioannis"><div><span class="eyebrow">06 / BACKGROUND</span><strong>From building<br>services to<br><em>products.</em></strong><span>My story ↗</span></div></a></div></section>
+ <section class="work-gallery" id="work" aria-label="Featured project gallery"><div class="gallery-top"><span class="eyebrow">SELECTED PROJECTS / FIVE STORIES</span><span class="eyebrow">HOVER OR TAP TO EXPLORE ↓</span></div><div class="work-gallery-grid">${projects.map((p,i)=>`<a class="gallery-tile gallery-tile-${i+1} reveal" style="--stagger:${i*90}ms" href="${projectURL(p.id)}" aria-label="View ${esc(p.title)} case study"><div class="gallery-art">${projectArt(p)}</div><div class="gallery-overlay"><span>${esc(p.eyebrow)}</span><strong>${esc(p.title)}</strong><b aria-hidden="true">↗</b></div></a>`).join('')}<a class="gallery-tile gallery-extra reveal" style="--stagger:450ms" href="${path('about/')}" aria-label="Read more about Ioannis"><div><span class="eyebrow">06 / BACKGROUND</span><strong>From building<br>services to<br><em>products.</em></strong><span>My story ↗</span></div></a></div></section>
  <section class="work-section" id="case-studies"><div class="work-section-intro"><div><span class="eyebrow">SELECTED WORK / 2026</span><h2>Work, from the<br><em>inside out.</em></h2></div><p>Not just what I built, but the problems I investigated, the trade-offs I made, and what the evidence did or didn't,show.</p></div>
  <div class="project-list">${projects.map((p,i)=>`<article class="project-feature reveal" id="featured-${esc(p.id)}"><a class="project-feature-visual" href="${projectURL(p.id)}" aria-label="Open ${esc(p.title)} case study">${projectArt(p)}<span class="project-feature-overlay">VIEW CASE STUDY <span>↗</span></span></a><div class="project-feature-copy"><div class="project-feature-overline"><span>${p.ordinal} / ${esc(p.category.toUpperCase())}</span><span>${esc(p.status)}</span></div><div class="project-feature-heading"><h3>${esc(p.title)}</h3><p class="project-tagline">${esc(p.intro)}</p></div><p class="project-description">${esc(p.teaser)}</p><div class="project-feature-meta"><div><span>YEAR</span><strong>${esc(p.year)}</strong></div><div><span>ROLE</span><strong>${esc(p.role)}</strong></div><div><span>SCOPE</span><strong>${esc(p.scope)}</strong></div></div><a href="${projectURL(p.id)}" class="view-case-link">View case study <span>↗</span></a></div></article>`).join('')}</div></section>
  <section class="play-section" id="play"><div class="play-topline"><div><span class="eyebrow">PLAY / OTHER EXPERIMENTS</span><h2>Room to<br><em>explore.</em></h2></div><p>Smaller explorations that taught me about constraints, building and where real testing matters.</p></div><div class="play-grid"><a href="https://github.com/IoannisKP/Radio-iOS-app" target="_blank" rel="noopener" class="play-art play-radio"><span>01 / iOS experiment</span><div class="play-radio-icon">◉</div><h3>Radio</h3><p>An eight-hour build, tested on a real phone.</p><i>View project ↗</i></a><a href="https://ioanniskp.github.io/-agent-x-case-study/" target="_blank" rel="noopener" class="play-art play-agent"><span>02 / UX research</span><div class="play-agent-glyph">X</div><h3>Agent X research</h3><p>Research matrix, personas and journey mapping.</p><i>Explore research ↗</i></a></div></section>
@@ -74,8 +74,38 @@ function setupCase(){if(page!=='case'||!project)return;const container=$('#chapt
  const updateReadingEstimate=()=>{const content=($('.case-intro')?.innerText||'')+' '+(container?.innerText||'');const words=content.trim().split(/\s+/).length;$('.reading-estimate').textContent=`${Math.max(1,Math.ceil(words/220))} MIN READ`;};
  const setMode=(value)=>{if(value===mode)return;mode=value;$('.case-page').dataset.currentMode=mode;container.classList.add('switching');container.innerHTML=(mode==='full'?project.chapters:project.short).map((c,i)=>mode==='full'?chapterMarkup(c,i):shortMarkup(c,i)).join('');$$('.mode-button').forEach(btn=>{const active=btn.dataset.mode===mode;btn.classList.toggle('selected',active);btn.setAttribute('aria-pressed',String(active));});updateReadingEstimate();const url=new URL(location.href);if(mode==='tldr')url.searchParams.set('view','tldr');else url.searchParams.delete('view');if(location.protocol==='http:' || location.protocol==='https:')history.replaceState(null,'',url.pathname+url.search);rebuildNav();$$('.chapter').forEach(c=>c.classList.add('revealed'));setTimeout(()=>container.classList.remove('switching'),260);const t=$('.case-intro').getBoundingClientRect().top+scrollY-100;if(scrollY>t)scrollTo({top:t,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});};
  $$('.mode-button').forEach(btn=>btn.addEventListener('click',()=>setMode(btn.dataset.mode)));rebuildNav();updateReadingEstimate();}
+
+function setupProjectMotion(){
+ if(page!=='home')return;
+ const fine=matchMedia('(hover: hover) and (pointer: fine)');
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ const cards=$('.gallery-tile, .project-feature-visual');
+ cards.forEach(card=>{
+   let raf=0, evt=null;
+   const update=()=>{
+     raf=0;
+     if(!evt||!fine.matches||reduced.matches)return;
+     const b=card.getBoundingClientRect();
+     const x=Math.max(-1,Math.min(1,((evt.clientX-b.left)/Math.max(b.width,1)-0.5)*2));
+     const y=Math.max(-1,Math.min(1,((evt.clientY-b.top)/Math.max(b.height,1)-0.5)*2));
+     card.style.setProperty('--tilt-y',(x*5.5).toFixed(2)+'deg');
+     card.style.setProperty('--tilt-x',(-y*5.5).toFixed(2)+'deg');
+     card.style.setProperty('--pointer-x',(x*9).toFixed(2)+'px');
+     card.style.setProperty('--pointer-y',(y*9).toFixed(2)+'px');
+   };
+   card.addEventListener('pointermove',e=>{evt=e;if(!raf)raf=requestAnimationFrame(update)},{passive:true});
+   card.addEventListener('pointerleave',()=>{
+     evt=null;cancelAnimationFrame(raf);raf=0;
+     card.style.setProperty('--tilt-x','0deg');
+     card.style.setProperty('--tilt-y','0deg');
+     card.style.setProperty('--pointer-x','0px');
+     card.style.setProperty('--pointer-y','0px');
+   });
+ });
+}
+
 function setupYear(){/* year printed in footer */}
-setupMenu();setupReveal();setupProgress();setupCase();setupYear();
+setupMenu();setupReveal();setupProjectMotion();setupProgress();setupCase();setupYear();
 
 function setupFooterWords(){
  const word=$('.footer-word');
