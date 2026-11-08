@@ -14,13 +14,13 @@ The November 2026 redesign draws on the **page architecture** of [Charles Honig'
 
 ## Projects
 
-1. **HIROOM** | Hyper Island student prototype; user interviews, 10 moderated booking-task participants, usability feedback and prioritization. Public prototype: https://book-an-island.lovable.app/
+1. **HIRoom** | Hyper Island student prototype; user interviews, 10 moderated booking-task participants, usability feedback and prioritization. Public prototype: https://book-an-island.lovable.app/
 2. **Scribe** | macOS recorder; product decisions, acceptance tests and manually identified defects.
 3. **Agent X** | UX design project; interviews, synthesis and wireframe testing.
 4. **PM Compass** | private ongoing PM assistant. **In progress**, not launched.
 5. **TEDx Circles** | concept discovery and pitch, not a launched service.
 
-**HIROOM now uses five genuine user-provided interface screenshots** of the homepage, availability calendar, invitations, confirmation, and booking management. Teammate email addresses in the invitation screenshot were blurred before publishing. The Lovable editor magic link is not stored in this public repository; the older public prototype URL remains linked until a new public URL is confirmed.
+**HIRoom now uses five genuine user-provided interface screenshots** of the homepage, availability calendar, invitations, confirmation, and booking management. Teammate email addresses in the invitation screenshot were blurred before publishing. The Lovable editor magic link is not stored in this public repository; the older public prototype URL remains linked until a new public URL is confirmed.
 
 ## Content integrity
 
