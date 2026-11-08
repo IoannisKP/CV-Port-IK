@@ -1,66 +1,46 @@
-# CV Port IK | Editorial redesign
+# CV Port IK
 
-A personal portfolio for **Ioannis Koupidis**, designed around his journey from creative work and entrepreneurship to digital product management. The website was built as a completely separate repository, leaving the previous `IoannisK_CV` website untouched.
+A portfolio for Ioannis Koupidis, built in a separate repository so the original `IoannisK_CV` website remains untouched.
 
-## Design direction
+## Current design
 
-The November 2026 redesign draws on the **page architecture** of [Charles Honig's portfolio](https://charleshonig.design/) rather than copying its content or proprietary assets:
+- **Light-first monochrome palette**: off-white, white, charcoal and gray, with automatic dark mode via `prefers-color-scheme: dark`.
+- **Typography**: Manrope across the website; IBM Plex Mono is reserved for small labels and metadata. No serif display type.
+- **Project gallery**: six image-led project tiles with gentle staggered reveals, desktop pointer-responsive movement, and reduced-motion support.
+- **Case studies**: each project has its own shareable page with Full and TL;DR reading modes, chapter navigation and reading-time estimates.
+- **Navigation**: Home, Work, About, CV and contact. No standalone Play / Other Experiments section.
 
-- Dark editorial canvas, compact name-and-metrics introduction, and an image-first project gallery.
-- Five distinct case-study narratives with oversized project artwork, structured metadata and long-form sections.
-- Dedicated **Full / TL;DR** reading modes on every project; modes update the content, chapter navigation, query string and reading estimate.
-- Secondary experiments, career narrative, experience, About and a linked PDF CV.
-- Navigation hover effects, scroll reveals, progress indicators, animated contact invitation, keyboard support and reduced-motion styles.
+## Featured projects
 
-## Projects
+1. **HIRoom** | Hyper Island room booking prototype, including 10 moderated booking-task participants. Five authentic screenshots are included; the teammate email addresses in one image are blurred.
+2. **Scribe** | macOS meeting recorder. A documented snapshot reported 283 passing automated tests and four defects found through manual checks.
+3. **Agent X** | UX research, synthesis and wireframe evaluation.
+4. **PM Compass** | private, ongoing product. Not publicly launched.
+5. **TEDx Circles** | community concept and pitch. Not a deployed program.
+6. **Radio** | an eight-hour iOS app build, independent agent review and device testing. A separate review reported four blocking faults, and the iPhone exposed a network problem not seen in the simulator. This is a working build, not a released app.
 
-1. **HIRoom** | Hyper Island student prototype; user interviews, 10 moderated booking-task participants, usability feedback and prioritization. Public prototype: https://book-an-island.lovable.app/
-2. **Scribe** | macOS recorder; product decisions, acceptance tests and manually identified defects.
-3. **Agent X** | UX design project; interviews, synthesis and wireframe testing.
-4. **PM Compass** | private ongoing PM assistant. **In progress**, not launched.
-5. **TEDx Circles** | concept discovery and pitch, not a launched service.
+The Radio case-study artwork uses an image from the original public portfolio. Actual project screenshots retain their native colors; the **site interface itself has no decorative accent color**.
 
-**HIRoom now uses five genuine user-provided interface screenshots** of the homepage, availability calendar, invitations, confirmation, and booking management. Teammate email addresses in the invitation screenshot were blurred before publishing. The Lovable editor magic link is not stored in this public repository; the older public prototype URL remains linked until a new public URL is confirmed.
+## Source files
 
-## Content integrity
+- `data.js`: biography, experience, project content and Full/TL;DR case-study narratives
+- `app.js`: page composition, gallery and reading-mode interactions
+- `styles.css`: shared baseline component styles
+- `redesign.css`: light/dark palettes, typography and contemporary editorial layout
+- `work/*/index.html`: project-specific pages
 
-Case studies distinguish research findings, recommendations, prototypes, completed capabilities and validated outcomes. Scribe's 283 passing automated tests and four manually discovered defects describe a historical snapshot, not necessarily the current state. PM Compass is private and still in progress. Konduko's SEK 1.5B+ amount refers to estimated aggregate procurement framework value, **not** company revenue.
+There is no build step. Serve the repository locally with `python3 -m http.server 8000`, then open `http://localhost:8000/`.
 
-## Editing
+## GitHub Pages
 
-No build step is required. Pages are small, static HTML entry points and ES modules.
+In GitHub repository **Settings > Pages**, select deployment from `main` and `/(root)`.
 
-- `data.js` | biographies and case-study text
-- `app.js` | layouts, case-study components and interactions
-- `styles.css` | original base styling and illustration styles
-- `redesign.css` | November 2026 editorial redesign overrides
-- `work/*/index.html` | project entry points
-- PDF CV linked from the original portfolio repository
+Expected public address: https://ioanniskp.github.io/CV-Port-IK/
 
-### Preview locally
+The original portfolio remains unchanged. A backup of the state before the current monochrome redesign was created as `backup-before-monochrome-radio`.
 
-Run `python3 -m http.server 8000` at the repository root, then open `http://localhost:8000/`.
+## Accuracy and remaining work
 
-### GitHub Pages
+The project descriptions distinguish research evidence, prototypes, proposed improvements and finished behavior. Konduko's estimated aggregate SEK 1.5B+ procurement-framework value is **not** company revenue.
 
-In **Settings → Pages**, choose **Deploy from a branch**, `main`, `/ (root)`.
-
-Expected preview: https://ioanniskp.github.io/CV-Port-IK/
-
-The original CV repository is not modified. The pre-redesign state of this separate repository is preserved in branch `backup-before-editorial-redesign`.
-
-## Notes
-
-- Real Scribe screenshots linked to the existing public site may require an internet connection; they aren't faked.
-- The visual reference's complete interactive animations and the authenticated Lovable editor could not be inspected through this environment. The interaction details here are original implementations based on verified public structure and documented requirements.
-- Review responsive behavior and project screenshots in a real mobile browser before using the portfolio for applications.
-
-## November 2026 presentation update
-
-- Removed the IK circle from the navigation and set the name to white.
-- Changed the site accent to neon yellow-green `#DFFF3C`.
-- Removed the Play navigation item and an unused exploration tile.
-- Updated the HIROOM project name and case-study participant count to 10.
-- Replaced the illustrated HIROOM preview with genuine prototype screenshots.
-- Removed em dashes in visible site copy.
-- Font decision is pending; Manrope, Playfair Display and IBM Plex Mono remain unchanged until the owner selects a new editorial font.
+Authentic HIRoom screenshots are committed locally, but some other portfolio images are linked from the original public portfolio. Check those links and review responsive layouts in a real browser before relying on the portfolio for job applications.
