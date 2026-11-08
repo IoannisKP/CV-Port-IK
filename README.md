@@ -1,48 +1,56 @@
-# CV version 3 — Ioannis Koupidis
+# CV Port IK — Editorial redesign
 
-A standalone, editorial portfolio for Ioannis Koupidis. This project does **not** modify the existing `IoannisK_CV` repository.
+A personal portfolio for **Ioannis Koupidis**, designed around his journey from creative work and entrepreneurship to digital product management. The website was built as a completely separate repository, leaving the previous `IoannisK_CV` website untouched.
 
-## What is included
+## Design direction
 
-- A fully responsive homepage, About page, digital CV page and five case studies.
-- Working **Full / TL;DR** reading modes on every case study. The URL stores the selected mode as `?view=tldr`.
-- Sticky chapter navigation, animated project covers, scroll progress, in-page navigation, responsive menus and reduced-motion support.
-- Download link to the existing verified PDF hosted in the original `IoannisK_CV` repository, plus real professional information. The original PDF is not duplicated in this repository.
-- Schematic cover illustrations, explicitly labeled as illustrations rather than fake app screenshots.
-- All content editable in `data.js`. Layout and behavior live in `app.js`; styles in `styles.css`.
+The November 2026 redesign draws on the **page architecture** of [Charles Honig's portfolio](https://charleshonig.design/) rather than copying its content or proprietary assets:
 
-## Preview locally
+- Dark editorial canvas, compact name-and-metrics introduction, and an image-first project gallery.
+- Five distinct case-study narratives with oversized project artwork, structured metadata and long-form sections.
+- Dedicated **Full / TL;DR** reading modes on every project; modes update the content, chapter navigation, query string and reading estimate.
+- "Play" experiments, career narrative, experience, About and downloadable CV.
+- Navigation hover effects, scroll reveals, progress indicators, animated contact invitation, keyboard support and reduced-motion styles.
 
-No build system or JavaScript framework is required. On a machine with Python:
+## Projects
 
-```bash
-python3 -m http.server 8000
-```
+1. **HIROOM / Book an Island** — Hyper Island student prototype; user interviews, usability feedback and prioritization. Public prototype: https://book-an-island.lovable.app/
+2. **Scribe** — macOS recorder; product decisions, acceptance tests and manually identified defects.
+3. **Agent X** — UX design project; interviews, synthesis and wireframe testing.
+4. **PM Compass** — private ongoing PM assistant. **In progress**, not launched.
+5. **TEDx Circles** — concept discovery and pitch, not a launched service.
 
-Open http://localhost:8000/ in your browser. Do not open `index.html` as a `file://` URL because ES modules may be blocked.
+**HIROOM's artwork is a concept illustration, not a screenshot** of the Lovable editor or published prototype. The access-token-bearing Lovable editor URL supplied during discussion is deliberately **not stored** in this public repository. The public prototype link is included in the case study. To replace schematic artwork with actual interface images, use screenshots you own and have permission to share.
 
-## Publishing to GitHub Pages
+## Content integrity
 
-1. The site files are already committed to the new repository `IoannisKP/CV-Port-IK` on `main`.
-2. In repository **Settings → Pages**, select **Deploy from a branch**, `main`, `/ (root)` and save.
-3. Once GitHub Pages publishes, the site URL should be `https://ioanniskp.github.io/CV-Port-IK/`.
-4. Keep your existing `IoannisK_CV` repository and deployed site unchanged.
+Case studies distinguish research findings, recommendations, prototypes, completed capabilities and validated outcomes. Scribe's 283 passing automated tests and four manually discovered defects describe a historical snapshot, not necessarily the current state. PM Compass is private and still in progress. Konduko's SEK 1.5B+ amount refers to estimated aggregate procurement framework value, **not** company revenue.
 
-For local edits, clone `https://github.com/IoannisKP/CV-Port-IK.git` and push changes to the `main` branch.
+## Editing
 
-## Before publishing publicly
+No build step is required. Pages are small, static HTML entry points and ES modules.
 
-- Replace the **illustrative project artwork** with selected authentic screenshots, research artifacts and wireframes as desired. The current art is openly labeled as schematic.
-- Check current status of Scribe and PM Compass against their latest builds; project descriptions distinguish historical test snapshots from current behavior.
-- Verify the exact counts used for TEDx Circles before publishing as measured evidence.
-- Consider whether the phone number in the downloadable legacy CV should remain public. It is not displayed on the site's pages.
-- Approve or revise the About Me copy; it is an editorial draft based on the supplied CV and project history.
-- Add testimonials only after obtaining genuine, approved quotes. None are invented here.
+- `data.js` — biographies and case-study text
+- `app.js` — layouts, case-study components and interactions
+- `styles.css` — original base styling and illustration styles
+- `redesign.css` — November 2026 editorial redesign overrides
+- `work/*/index.html` — project entry points
+- `assets/Ioannis-Koupidis-CV.pdf` — printable existing CV
 
-## Source and design note
+### Preview locally
 
-The editorial design is inspired by the layout principles and Full/TL;DR case-study pattern of Charles Honig's portfolio. All code, layout treatment, visual elements and text here are original, and no external proprietary design assets were copied.
+Run `python3 -m http.server 8000` at the repository root, then open `http://localhost:8000/`.
 
-## Accessibility
+### GitHub Pages
 
-Semantic sections, keyboard-operated buttons, focus visibility, readable contrast and reduced-motion support are included. Test with your own browser and assistive technology before relying on a formal accessibility claim.
+In **Settings → Pages**, choose **Deploy from a branch**, `main`, `/ (root)`.
+
+Expected preview: https://ioanniskp.github.io/CV-Port-IK/
+
+The original CV repository is not modified. The pre-redesign state of this separate repository is preserved in branch `backup-before-editorial-redesign`.
+
+## Notes
+
+- Real Scribe screenshots linked to the existing public site may require an internet connection; they aren't faked.
+- The visual reference's complete interactive animations and the authenticated Lovable editor could not be inspected through this environment. The interaction details here are original implementations based on verified public structure and documented requirements.
+- Review responsive behavior and project screenshots in a real mobile browser before using the portfolio for applications.
