@@ -5,21 +5,21 @@ A portfolio for Ioannis Koupidis, built in a separate repository so the original
 ## Current design
 
 - **Light-first monochrome palette**: off-white, white, charcoal and gray, with automatic dark mode via `prefers-color-scheme: dark`.
-- **Typography**: Manrope across the website; IBM Plex Mono is reserved for small labels and metadata. No serif display type.
-- **Project gallery**: six image-led project tiles with gentle staggered reveals, desktop pointer-responsive movement, and reduced-motion support.
+- **Typography**: Manrope is the only font family, including hero headlines, labels and metadata. The hero name uses the same font weight and size as the surrounding text.
+- **Project gallery**: six image-led project tiles with gentle staggered reveals, desktop pointer-responsive movement, and reduced-motion support. The site chrome remains neutral while individual project artwork retains its identity and colors.
 - **Case studies**: each project has its own shareable page with Full and TL;DR reading modes, chapter navigation and reading-time estimates.
 - **Navigation**: Home, Work, About, CV and contact. No standalone Play / Other Experiments section.
 
 ## Featured projects
 
 1. **HIRoom** | Hyper Island room booking prototype, including 10 moderated booking-task participants. Five authentic screenshots are included; the teammate email addresses in one image are blurred.
-2. **Scribe** | macOS meeting recorder. A documented snapshot reported 283 passing automated tests and four defects found through manual checks.
+2. **Scribe** | macOS meeting recorder, now illustrated with genuine user-provided recording and empty-library screenshots stored in `assets/scribe/`. A documented snapshot reported 283 passing automated tests and four defects found through manual checks.
 3. **Agent X** | UX research, synthesis and wireframe evaluation.
 4. **PM Compass** | private, ongoing product. Not publicly launched.
 5. **TEDx Circles** | community concept and pitch. Not a deployed program.
 6. **Radio** | an eight-hour iOS app build, independent agent review and device testing. A separate review reported four blocking faults, and the iPhone exposed a network problem not seen in the simulator. This is a working build, not a released app.
 
-The Radio case-study artwork uses an image from the original public portfolio. Actual project screenshots retain their native colors; the **site interface itself has no decorative accent color**.
+The Radio case-study artwork uses an image from the original public portfolio. Scribe now uses two real screenshots of the current macOS UI, not a fabricated interface. HIRoom uses genuine prototype captures. The other project visuals are illustrative compositions in their own palettes. The **site interface itself has no decorative accent color**.
 
 ## Source files
 
