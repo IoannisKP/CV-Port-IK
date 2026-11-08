@@ -59,7 +59,7 @@ The original CV repository is not modified. The pre-redesign state of this separ
 
 - Removed the IK circle from the navigation and set the name to white.
 - Changed the site accent to neon yellow-green `#DFFF3C`.
-- Removed the Play navigation item and Newcomer to Sweden experiment.
+- Removed the Play navigation item and an unused exploration tile.
 - Updated the HIROOM project name and case-study participant count to 10.
 - Replaced the illustrated HIROOM preview with genuine prototype screenshots.
 - Removed em dashes in visible site copy.
