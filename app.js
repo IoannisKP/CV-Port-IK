@@ -1,117 +1,281 @@
-import { person, experience, education, projects } from './data.js';
+import { person, experience, education, projects } from "./data.js";
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const root = document.body.dataset.root || "./";
+const page = document.body.dataset.page || "home";
+const project = projects.find((p) => p.id === document.body.dataset.project);
+const esc = (v = "") =>
+  String(v).replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+        c
+      ],
+  );
+const path = (p = "") => root + p;
+const projectURL = (id) => path(`work/${id}/`);
+const arrow = '<span aria-hidden="true">↗</span>';
+const decisions = {
+  hiroom: {
+    title: "Making room booking easier at Hyper Island.",
+    decision:
+      "Prioritize visible availability, room capacity and booking edits before adding more features.",
+    evidence: "10 participants completed moderated booking tasks.",
+    kind: "Discovery & prioritization",
+  },
+  scribe: {
+    title: "A meeting recorder built around recoverable files.",
+    decision:
+      "Protect saved audio independently of transcription, and verify the files people actually receive.",
+    evidence:
+      "Manual checks found four defects despite 283 passing tests in a documented snapshot.",
+    kind: "Scope & delivery",
+  },
+  "pm-compass": {
+    title: "Helping a product manager decide what comes next.",
+    decision:
+      "Organize guidance around five practical jobs and defer AI features that add unnecessary complexity.",
+    evidence:
+      "A private, ongoing product; public adoption has not been validated.",
+    kind: "Strategy & product structure",
+  },
+  "agent-x": {
+    title: "Helping new players find their footing.",
+    decision:
+      "Explore guidance that supports learning without removing the challenge of the game.",
+    evidence:
+      "Research and wireframe evaluation informed an onboarding concept.",
+    kind: "UX research",
+  },
+  "tedx-circles": {
+    title: "Keeping the conversation going between events.",
+    decision:
+      "Propose small, recurring discussions that can be tested with a limited pilot.",
+    evidence:
+      "A student concept and pitch; participation and retention remain untested.",
+    kind: "Concept validation",
+  },
+  radio: {
+    title: "Testing a focused listening experience on a real device.",
+    decision:
+      "Keep the scope narrow and separate implementation, independent review and device testing.",
+    evidence:
+      "A physical iPhone exposed a network failure that the simulator missed.",
+    kind: "Product execution",
+  },
+};
+function header() {
+  const nav = [
+    ["Home", path(""), "home"],
+    ["Work", path("") + "#work", "work"],
+    ["About", path("about/"), "about"],
+    ["CV", path("cv/"), "cv"],
+  ];
+  return `<header class="header" id="top"><div class="wrap header-inner"><a class="skip-link" href="#main">Skip to content</a><a class="wordmark" href="${path("")}">Ioannis Koupidis<span>Stockholm, Sweden</span></a><button class="menu-toggle btn btn--secondary" type="button" aria-expanded="false" aria-controls="main-navigation">Menu</button><nav id="main-navigation" aria-label="Main navigation">${nav.map(([label, href, key]) => `<a href="${href}" ${page === key ? 'aria-current="page"' : ""}>${label}</a>`).join("")}<a class="btn btn--primary" href="mailto:${person.email}">Contact me ${arrow}</a></nav></div></header>`;
+}
+function footer() {
+  return `<footer class="footer" id="contact"><div class="wrap"><div class="footer-heading"><p class="eyebrow">Contact</p><h2>Let’s talk<br>about product work.</h2><p>I’m based in Stockholm and open to product opportunities.</p><a class="contact-email" href="mailto:${person.email}">${person.email} ${arrow}</a></div><div class="footer-bottom"><span>© ${new Date().getFullYear()} Ioannis Koupidis</span><div><a href="${person.linkedin}" target="_blank" rel="noopener">LinkedIn ${arrow}</a><a href="${person.github}" target="_blank" rel="noopener">GitHub ${arrow}</a><a href="${path("cv/")}">View CV ${arrow}</a><a href="#top">Back to top ↑</a></div></div></div></footer>`;
+}
+function projectArt(p) {
+  if (p.id === "hiroom")
+    return `<div class="project-art art-hiroom"><img src="${path("assets/hiroom/hiroom-02-availability.svg")}" alt="HIRoom prototype availability grid showing room capacity and booking times" loading="lazy" width="1440" height="1024"></div>`;
+  if (p.id === "scribe")
+    return `<div class="project-art art-scribe"><img src="${path("assets/scribe/scribe-recording.webp")}" alt="Scribe recording interface with audio sources, transcription settings and recording controls" loading="lazy" width="1200" height="945"></div>`;
+  return `<div class="project-art art-compass"><div class="architecture"><p>PM Compass</p><h3>Return to the work.</h3><ol><li><span>01</span> Today <small>Resume a project</small></li><li><span>02</span> Help Me <small>Handle a situation</small></li><li><span>03</span> Guides <small>Complete a task</small></li><li><span>04</span> Library <small>Recall a concept</small></li><li><span>05</span> Projects <small>Recover a decision</small></li></ol><p class="architecture-note">Product structure · private project</p></div></div>`;
+}
+function feature(p, i) {
+  const d = decisions[p.id];
+  return `<article class="featured-project" id="featured-${p.id}"><div class="project-copy"><p class="eyebrow">0${i + 1} / ${d.kind}</p><h3><a href="${projectURL(p.id)}">${p.title} ${arrow}</a></h3><p class="project-title">${d.title}</p><p class="project-role">${esc(p.role)}</p><div class="decision"><span class="eyebrow">A key decision</span><p>${d.decision}</p></div><div class="project-bottom"><span class="status">${esc(p.status)}</span><a class="link" href="${projectURL(p.id)}">Read the case study ${arrow}</a></div></div><a class="project-image m-zoom" href="${projectURL(p.id)}" aria-label="Read the ${p.title} case study">${projectArt(p)}</a></article>`;
+}
+function home() {
+  const featured = ["hiroom", "scribe", "pm-compass"].map((id) =>
+    projects.find((p) => p.id === id),
+  );
+  const other = ["agent-x", "tedx-circles", "radio"].map((id) =>
+    projects.find((p) => p.id === id),
+  );
+  return `<main id="main" tabindex="-1"><section class="home-hero hero" data-enter><div class="wrap hero-grid"><div class="hero-text"><p class="eyebrow">Founder · Product management · Stockholm</p><h1>Ioannis<br>Koupidis.</h1><p class="hero-lead">Bringing business experience<br>to digital product decisions.</p><p class="hero-description">I spent 13 years building healthcare services in Sweden. Now I’m studying Product Management at Hyper Island and applying that experience to research, prioritization and hands-on product work.</p><div class="btn-row"><a class="btn btn--primary" href="#work">Explore my work ↓</a><a class="btn btn--secondary" href="${path("cv/")}">View CV ${arrow}</a></div></div><div class="hero-work" data-enter-media><p class="eyebrow">Selected work / HIRoom</p><a class="hero-work-image m-zoom" href="${projectURL("hiroom")}" aria-label="Read the HIRoom case study"><img src="${path("assets/hiroom/hiroom-01-home.svg")}" alt="HIRoom prototype homepage with date selection and upcoming bookings" width="1440" height="1024" fetchpriority="high"></a><a class="link" href="${projectURL("hiroom")}">From research to product priorities ${arrow}</a></div></div></section>
+ <div class="experience-band"><div class="wrap experience-grid"><div><span class="eyebrow">Business ownership</span><p>Founder & CEO, Konduko AB<br><span>Healthcare services · 2012–2025</span></p></div><div><span class="eyebrow">Current focus</span><p>Product Management<br><span>Hyper Island · Stockholm</span></p></div><div><span class="eyebrow">Practical experience</span><p>Research, scope and delivery<br><span>From interviews to working builds</span></p></div></div></div>
+ <section class="selected-work wrap" id="work"><div class="section-heading"><p class="eyebrow">Selected work</p><h2>Problems, decisions<br>and what I learned.</h2><p>Three projects across discovery, delivery and product strategy. Each explains my contribution and the evidence behind the work.</p></div>${featured.map(feature).join("")}</section>
+ <section class="further-work"><div class="wrap"><div class="section-heading compact"><p class="eyebrow">Further work</p><h2>Other questions I’ve explored.</h2></div><div class="secondary-grid">${other.map((p) => `<article class="secondary-project card"><p class="eyebrow">${decisions[p.id].kind}</p><h3><a href="${projectURL(p.id)}">${p.title} ${arrow}</a></h3><p>${decisions[p.id].title}</p><span class="status">${esc(p.status)}</span><a class="link" href="${projectURL(p.id)}">Read the case study ${arrow}</a></article>`).join("")}</div></div></section>
+ <section class="home-story wrap"><p class="eyebrow">My background</p><div><h2>Years of decisions<br>with people depending on them.</h2><p>I started in graphic design, then founded and ran businesses in Sweden. Healthcare operations meant balancing people’s needs, contracts, schedules and reliability every day.</p><p>Product management brings that experience into a new setting. I’m learning to connect user research with priorities, build what is needed and test whether it works.</p><a class="link" href="${path("about/")}">Read my background ${arrow}</a></div></section></main>`;
+}
+function about() {
+  return `<main id="main" tabindex="-1"><section data-enter class="hero page-hero about-hero"><span class="eyebrow">ABOUT / BACKGROUND</span><h1>Design, operations<br>and product management.</h1><div class="hero page-hero-bottom"><p>I'm Ioannis Koupidis, a founder, former creative professional and current Product Management student in Stockholm.</p><span class="eyebrow">DESIGN × OPERATIONS × PRODUCT</span></div></section><section class="story-body section-pad"><div class="story-split"><div class="eyebrow">THE SHORT VERSION <span class="accent-asterisk">✳</span></div><div class="story-prose"><p class="story-lead">I have spent much of my working life turning complicated needs into services that people can depend on.</p><p>I started in design, moved into entrepreneurship and spent 13 years building healthcare services in Sweden. That meant contracts, schedules, changing needs and decisions where reliability mattered, not just a good presentation.</p><p>Today I'm studying Product Management at Hyper Island, following UX Design studies at Medieinstitutet. I'm learning to bring user research, product decisions, prototyping and testing into digital products.</p><p>What interests me most hasn't changed: understand the problem before deciding what to build.</p></div></div></section><section class="learning-section section-pad"><div class="section-intro"><span class="eyebrow">WORKING TOGETHER</span><div><h2>How I work with a team.</h2><p>During my studies, I've reflected on moments when I moved too quickly toward a solution. I've learned to make more space for other perspectives, test assumptions and help a team reach a better decision, not simply defend my first idea.</p></div></div><div class="learning-three"><article><span>01 /</span><h3>Stay curious.</h3><p>Ask what people are actually trying to achieve, not only which feature they say they want.</p></article><article><span>02 /</span><h3>Make choices visible.</h3><p>Connect priorities to evidence, trade-offs and the constraints that shaped them.</p></article><article><span>03 /</span><h3>Test what matters.</h3><p>Measure the real outcome, including the things a passing test or pretty prototype can miss.</p></article></div></section><section class="section-pad timeline-section"><div class="section-heading-row"><span class="eyebrow">THE PATH SO FAR</span><h2>Experience<span class="heading-mark">↙</span></h2></div><div class="timeline">${experience.map((e) => `<article class="timeline-item"><div class="tl-years">${esc(e.years)}</div><div class="tl-content"><h3>${esc(e.company)}</h3><span class="role">${esc(e.role)}</span><p>${esc(e.details)}</p>${e.evidence ? `<div class="evidence-chips">${e.evidence.map((t) => `<span>${esc(t)}</span>`).join("")}</div>` : ""}${e.note ? `<p class="evidence-note">${esc(e.note)}</p>` : ""}</div></article>`).join("")}</div></section><section class="section-pad education-section"><div class="section-heading-row"><span class="eyebrow">LEARNING</span><h2>Education<span class="heading-mark">↙</span></h2></div><div class="timeline">${education.map((e) => `<article class="timeline-item"><div class="tl-years">${esc(e.years)}</div><div class="tl-content"><h3>${esc(e.subject)}</h3><span class="role">${esc(e.school)}</span></div></article>`).join("")}</div><div class="language-bar"><span class="eyebrow">LANGUAGES</span><span>Greek / Native</span><span>Swedish / Fluent</span><span>English / Fluent</span><span>German / Basic</span></div></section></main>`;
+}
+function cv() {
+  return `<main id="main" tabindex="-1"><section data-enter class="hero page-hero cv-hero"><span class="eyebrow">CURRICULUM VITAE / 2026</span><h1>Experience for<br>product work.</h1><div class="hero page-hero-bottom"><p>Founder & Product Management student · Stockholm, Sweden</p><a class="download-btn" href="https://raw.githubusercontent.com/IoannisKP/IoannisK_CV/main/Ioannis-Koupidis-CV.pdf" target="_blank" rel="noopener">Download PDF <span>↓</span></a></div></section><div class="cv-paper"><section class="cv-contact"><div><span class="eyebrow">IOANNIS KOUPIDIS</span><h2>Founder · Product Management</h2><p>Combining 13 years of healthcare service experience in Sweden with user research, product scoping and hands-on AI-assisted development.</p></div><div class="cv-contact-links"><a href="mailto:${person.email}">${person.email}</a><a href="${person.linkedin}" target="_blank" rel="noopener">LinkedIn ↗</a><a href="${person.github}" target="_blank" rel="noopener">GitHub ↗</a><span>Stockholm, Sweden</span></div></section><section class="cv-block"><h3>Experience</h3><div>${experience.map((e) => `<div class="cv-entry"><div><strong>${esc(e.role)}</strong><span>${esc(e.company)}</span><p>${esc(e.details)}</p>${e.note ? `<small>${esc(e.note)}</small>` : ""}</div><span class="cv-date">${esc(e.years)}</span></div>`).join("")}</div></section><section class="cv-block"><h3>Selected product projects</h3><div>${projects
+    .slice(0, 4)
+    .map(
+      (p) =>
+        `<div class="cv-entry"><div><a href="${projectURL(p.id)}"><strong>${esc(p.title)} ↗</strong></a><span>${esc(p.eyebrow)}</span><p>${esc(p.teaser)}</p></div><span class="cv-date">${esc(p.year)}</span></div>`,
+    )
+    .join(
+      "",
+    )}</div></section><section class="cv-block"><h3>Education</h3><div>${education.map((e) => `<div class="cv-entry compact"><div><strong>${esc(e.subject)}</strong><span>${esc(e.school)}</span></div><span class="cv-date">${esc(e.years)}</span></div>`).join("")}</div></section><section class="cv-block"><h3>Capabilities</h3><p>User research and synthesis · Problem framing · Product scoping and acceptance criteria · Stakeholder coordination · Workflow design · Figma wireframes · Lovable prototypes · AI-assisted development and manual verification · Service operations</p></section><section class="cv-block"><h3>Languages</h3><p>Greek (native) · Swedish (fluent) · English (fluent) · German (basic)</p></section></div><section class="cv-after"><p>This page gives the longer picture. The downloadable PDF is the concise resume supplied with the original CV. Projects can also be explored in depth.</p><a href="${path("")}#work" class="text-link">Browse case studies ↗</a></section></main>`;
+}
 
-const $ = (s, el=document) => el.querySelector(s);
-const $$ = (s, el=document) => [...el.querySelectorAll(s)];
-const root = document.body.dataset.root || './';
-const page = document.body.dataset.page || 'home';
-const projectId = document.body.dataset.project;
-const project = projects.find(p => p.id === projectId);
-const esc = (v='') => String(v).replace(/[&<>\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
-const path = (p='') => root + p;
-const projectURL = id => path(`work/${id}/`);
+function artifact(src, alt) {
+  return `<div class="case-artifact"><img src="${path(src)}" alt="${esc(alt)}" loading="lazy"></div>`;
+}
+function chapterArtifact(p, i) {
+  if (p.id === "hiroom") {
+    const shots = {
+      1: [
+        "hiroom-01-home.svg",
+        "HIRoom prototype homepage used in discovery and testing",
+      ],
+      2: [
+        "hiroom-02-availability.svg",
+        "Room availability grid displaying times and room capacities",
+      ],
+      3: [
+        "hiroom-03-invite.svg",
+        "Prototype invitation flow with teammate email addresses blurred",
+      ],
+      4: ["hiroom-04-confirm.svg", "Prototype booking confirmation"],
+      5: [
+        "hiroom-05-bookings.svg",
+        "Prototype view for managing upcoming bookings",
+      ],
+    };
+    return shots[i]
+      ? artifact("assets/hiroom/" + shots[i][0], shots[i][1])
+      : "";
+  }
+  if (p.id === "scribe" && i === 1)
+    return artifact(
+      "assets/scribe/scribe-recording.webp",
+      "Scribe recording settings for audio sources and local transcription",
+    );
+  if (p.id === "scribe" && i === 3)
+    return artifact(
+      "assets/scribe/scribe-library.webp",
+      "Scribe session library empty state",
+    );
+  if (p.id === "radio" && i === 3)
+    return artifact(
+      "assets/radio/player.jpg",
+      "Radio application player interface",
+    );
+  return "";
+}
+function chapterMarkup(c, i, p) {
+  return `<section class="chapter" id="chapter-${i + 1}" data-chapter="${i + 1}"><p class="chapter-num">${String(i + 1).padStart(2, "0")} / ${esc(c.label)}</p><h2>${esc(c.title)}</h2>${c.body.map((t) => `<p>${esc(t)}</p>`).join("")}${c.take ? `<div class="chapter-insight"><span class="eyebrow">The takeaway</span><p>${esc(c.take)}</p></div>` : ""}${chapterArtifact(p, i)}</section>`;
+}
+function shortMarkup(c, i) {
+  return `<section class="chapter" id="chapter-${i + 1}" data-chapter="${i + 1}"><p class="chapter-num">${String(i + 1).padStart(2, "0")} / ${esc(c.label)}</p><h2>${esc(c.title)}</h2><p>${esc(c.body)}</p></section>`;
+}
+function chapters(p, mode) {
+  return (mode === "full" ? p.chapters : p.short)
+    .map((c, i) =>
+      mode === "full" ? chapterMarkup(c, i, p) : shortMarkup(c, i),
+    )
+    .join("");
+}
+function caseStudy(p) {
+  const next = projects[(projects.indexOf(p) + 1) % projects.length];
+  const mode =
+    new URLSearchParams(location.search).get("view") === "tldr"
+      ? "tldr"
+      : "full";
+  const d = decisions[p.id];
+  return `<main class="case-page" id="main" tabindex="-1" data-current-mode="${mode}"><section class="hero case-hero wrap" data-enter><a class="link" href="${path("")}#work">← All work</a><p class="eyebrow">${esc(p.eyebrow)}</p><h1>${esc(p.title)}</h1><p class="case-subtitle">${d.title}</p><dl class="case-meta"><div><dt>My contribution</dt><dd>${esc(p.role)}</dd></div><div><dt>Context</dt><dd>${esc(p.status)}</dd></div><div><dt>Year</dt><dd>${esc(p.year)}</dd></div></dl><div class="case-summary"><div><h2>The problem</h2><p>${esc(p.short[0].body)}</p></div><div><h2>A key decision</h2><p>${d.decision}</p></div><div><h2>What the evidence shows</h2><p>${d.evidence}</p></div></div>${p.links.length ? `<div class="case-actions">${p.links.map((l) => `<a class="link" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ${arrow}</a>`).join("")}</div>` : ""}</section>
+ <div class="case-reading wrap"><aside class="case-sidebar"><p class="eyebrow">Reading options</p><div class="mode-control" role="group" aria-label="Case study reading mode"><button type="button" class="mode-button" data-mode="full" aria-pressed="${mode === "full"}">Full</button><button type="button" class="mode-button" data-mode="tldr" aria-pressed="${mode === "tldr"}">TL;DR</button></div><p class="reading-estimate" aria-live="polite"></p><nav class="chapter-nav" aria-label="Case study chapters"></nav></aside><div class="case-main"><div id="chapter-container">${chapters(p, mode)}</div><div class="case-end"><p class="eyebrow">Next project</p><a href="${projectURL(next.id)}">${next.title} ${arrow}</a></div></div></div></main>`;
+}
+$("#app").innerHTML =
+  header() +
+  (page === "home"
+    ? home()
+    : page === "about"
+      ? about()
+      : page === "cv"
+        ? cv()
+        : page === "case" && project
+          ? caseStudy(project)
+          : '<main id="main"><h1>Page not found</h1></main>') +
+  footer();
 
-function header(){
- return `<header class="header" id="top"><a class="wordmark" href="${path('')}" aria-label="Ioannis Koupidis home"><span class="brand-name">Ioannis Koupidis<small>Stockholm, Sweden</small></span></a><div class="nav-group"><nav aria-label="Main navigation"><a class="nav-link ${page==='home'?'active':''}" href="${path('')}">Home</a><a class="nav-link" href="${path('')}#work">Work</a><a class="nav-link ${page==='about'?'active':''}" href="${path('about/')}">About</a><a class="nav-link ${page==='cv'?'active':''}" href="${path('cv/')}">CV</a></nav><a class="contact-pill" href="mailto:${person.email}">Let's connect <span aria-hidden="true">↗</span></a></div><button class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button></header>`;
+function setupMenu() {
+  const button = $(".menu-toggle"),
+    nav = $("#main-navigation"),
+    mobile = matchMedia("(max-width: 760px)");
+  const setOpen = (open, restore = false) => {
+    document.body.classList.toggle("menu-open", open);
+    button.setAttribute("aria-expanded", String(open));
+    button.textContent = open ? "Close" : "Menu";
+    nav.inert = mobile.matches && !open;
+    $("main").inert = mobile.matches && open;
+    $(".footer").inert = mobile.matches && open;
+    if (restore) button.focus();
+  };
+  button.addEventListener("click", () =>
+    setOpen(button.getAttribute("aria-expanded") !== "true"),
+  );
+  $$("a", nav).forEach((a) =>
+    a.addEventListener("click", () => setOpen(false)),
+  );
+  document.addEventListener("keydown", (e) => {
+    if (!document.body.classList.contains("menu-open")) return;
+    if (e.key === "Escape") {
+      setOpen(false, true);
+      return;
+    }
+    if (e.key === "Tab") {
+      const items = [button, ...$$("a", nav)],
+        first = items[0],
+        last = items.at(-1);
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
+  mobile.addEventListener("change", () => setOpen(false));
+  setOpen(false);
 }
-function footer(){
- return `<footer class="footer" id="contact"><div class="footer-kicker"><span class="eyebrow">LET'S MAKE SOMETHING GOOD</span><span class="footer-star" aria-hidden="true">✳</span></div><a class="footer-title" href="mailto:${person.email}">Let's <span class="footer-word" aria-live="off">build</span> something<br>great together<span class="question">.</span><span class="footer-arrow" aria-hidden="true">↗</span></a><div class="footer-email"><a href="mailto:${person.email}">${person.email}</a></div><div class="footer-bottom"><span>© ${new Date().getFullYear()} Ioannis Koupidis · Stockholm, Sweden</span><div><a href="${person.linkedin}" target="_blank" rel="noopener">LinkedIn ↗</a><a href="${person.github}" target="_blank" rel="noopener">GitHub ↗</a><a href="https://raw.githubusercontent.com/IoannisKP/IoannisK_CV/main/Ioannis-Koupidis-CV.pdf" target="_blank" rel="noopener">Resume ↓</a><a href="#top">Top ↑</a></div></div></footer>`;
+function setupCase() {
+  if (page !== "case" || !project) return;
+  const container = $("#chapter-container"),
+    nav = $(".chapter-nav");
+  let mode = $(".case-page").dataset.currentMode;
+  function refresh() {
+    const labels = mode === "full" ? project.chapters : project.short;
+    nav.innerHTML = labels
+      .map(
+        (c, i) =>
+          `<a href="#chapter-${i + 1}">${String(i + 1).padStart(2, "0")} <span>${esc(c.label)}</span></a>`,
+      )
+      .join("");
+    const words = ($(".case-summary").textContent + " " + container.textContent)
+      .trim()
+      .split(/\s+/).length;
+    $(".reading-estimate").textContent =
+      `${Math.max(1, Math.ceil(words / 220))} min read`;
+  }
+  $$(".mode-button").forEach((button) =>
+    button.addEventListener("click", () => {
+      if (button.dataset.mode === mode) return;
+      mode = button.dataset.mode;
+      $(".case-page").dataset.currentMode = mode;
+      container.innerHTML = chapters(project, mode);
+      $$(".mode-button").forEach((b) =>
+        b.setAttribute("aria-pressed", String(b.dataset.mode === mode)),
+      );
+      const url = new URL(location.href);
+      if (mode === "tldr") url.searchParams.set("view", "tldr");
+      else url.searchParams.delete("view");
+      url.hash = "";
+      history.replaceState(null, "", url.pathname + url.search);
+      refresh();
+    }),
+  );
+  refresh();
 }
-function projectArt(p, type='card'){
- const tag = `<span class="visual-label">${type==='hero'?'PROJECT VISUAL / ':''}${esc(p.title.toUpperCase())}</span>`;
- const schem = '<span class="visual-footnote">Illustrative schematic · not a product screenshot</span>';
- if(p.visual==='hiroom'){
-  const file=type==='hero'?'hiroom-01-home.svg':'hiroom-02-availability.svg';
-  const alt=type==='hero'?'Actual HIROOM room-booking homepage showing date selection and upcoming bookings':'Actual HIROOM availability matrix showing bookable rooms, times and room capacity';
-  return `<div class="art-scene art-hiroom-screenshot">${tag}<div class="hiroom-shot"><img src="${path('assets/hiroom/'+file)}" alt="${alt}" loading="${type==='hero'?'eager':'lazy'}"></div><span class="visual-footnote">REAL HIROOM PROTOTYPE SCREENSHOT</span></div>`;
- }
- if(p.visual==='scribe')return `<div class="art-scene art-scribe-photo" style="--art:${p.accent};--art-ink:${p.ink}">${tag}<div class="scribe-shot-surface"><img src="${path('assets/scribe/scribe-recording.webp')}" alt="Genuine Scribe recording and transcription application screen" loading="${type==='hero'?'eager':'lazy'}"></div><span class="visual-footnote">REAL SCRIBE APP SCREENSHOT</span></div>`;
- if(p.visual==='agent')return `<div class="art-scene art-agent" style="--art:${p.accent};--art-ink:${p.ink}">${tag}<div class="agent-interface"><span class="agent-cross">╳</span><div class="agent-grain"></div><div class="agent-top">AGENT / X <span>FIELD NOTE 001</span></div><div class="agent-center">YOU FAILED.<br><em>NOW WHAT?</em></div><div class="agent-hint">↗ &nbsp; Consider what changed on your last attempt.</div><div class="agent-bottom">HINT, NOT WALKTHROUGH <span>01 / 04</span></div></div>${schem}</div>`;
- if(p.visual==='compass')return `<div class="art-scene art-compass" style="--art:${p.accent};--art-ink:${p.ink}">${tag}<div class="compass-board"><div class="compass-side"><span>✳</span><span>Today</span><span>Help Me</span><span>Guides</span><span>Library</span><span>Projects</span></div><div class="compass-main"><span class="mini-label">MONDAY / YOUR WORKSPACE</span><div>Where did<br>we leave off?</div><div class="compass-note"><span>ACTIVE PROJECT</span><b>Your next step →</b><small>Review the last decision before you add another feature.</small></div></div></div>${schem}</div>`;
- if(p.visual==='radio')return `<div class="art-scene art-radio-screenshot">${tag}<div class="radio-visual-stage"><div class="radio-visual-ring" aria-hidden="true"></div><div class="radio-phone"><img src="https://ioanniskp.github.io/IoannisK_CV/assets/images/radio/player.png" alt="Radio application player screen, tested on a physical iPhone" loading="lazy"></div><span class="radio-stage-tag">LISTENING / iOS</span></div><span class="visual-footnote">REAL RADIO APPLICATION SCREENSHOT</span></div>`;
- return `<div class="art-scene art-circles" style="--art:${p.accent};--art-ink:${p.ink}">${tag}<div class="circles-art"><div class="circle orbit-1"></div><div class="circle orbit-2"></div><div class="circle orbit-3"></div><div class="circle-core">ONE<br>GOOD<br>QUESTION<span>✳</span></div><div class="circle-dot dot-a"></div><div class="circle-dot dot-b"></div><div class="circle-dot dot-c"></div><div class="circle-dot dot-d"></div></div>${schem}</div>`;
-}
-function hiroomGalleryMarkup(){
- const images=[
-  ['hiroom-01-home.svg','Homepage','The HIROOM homepage with day selection and upcoming reservations'],
-  ['hiroom-02-availability.svg','Availability and room selection','The time and room availability grid, showing capacities and room amenities'],
-  ['hiroom-03-invite.svg','Invite teammates','The teammate invitation stage of the booking flow. Email addresses have been blurred for privacy'],
-  ['hiroom-04-confirm.svg','Booking confirmation','The final booking confirmation step with date, time, room and participants'],
-  ['hiroom-05-bookings.svg','Manage bookings','The My bookings screen with upcoming reservations and edit actions']
- ];
- return `<div class="actual-artifacts hiroom-artifacts"><div class="hiroom-gallery-heading"><span class="eyebrow">REAL HIROOM INTERFACE / FIVE SCREENS</span><p>From finding a room to managing a reservation. These are screenshots of the student prototype, not illustrations.</p></div><div class="hiroom-gallery">${images.map(([file,title,alt],i)=>`<figure class="hiroom-gallery-item hiroom-gallery-item-${i+1}"><img src="${path('assets/hiroom/'+file)}" alt="${esc(alt)}" loading="lazy"><figcaption><strong>${String(i+1).padStart(2,'0')} / ${esc(title)}</strong><span>${esc(alt)}</span></figcaption></figure>`).join('')}</div></div>`;
-}
-
-function home(){
- return `<main class="honig-home">
- <section class="home-hero" id="home"><div class="hero-layout"><div class="hero-introduction"><h1 class="hero-title"><span class="hero-line"><em>Ioannis Koupidis</em> is</span><span class="hero-line">a founder building</span><span class="hero-line">better <span class="orange-type">digital products.</span></span></h1><p class="hero-description">I spent 13 years building healthcare services in Sweden. Now I'm applying that experience to product discovery, user research and hands-on digital products at Hyper Island.</p><a href="#work" class="hero-explore">Explore my work <span>↘</span></a></div><div class="hero-summary"><div class="hero-stat"><strong>13<span>+</span></strong><p>Years building and leading healthcare services</p></div><div class="hero-stat"><strong>06</strong><p>Featured case studies across discovery, UX and product building</p></div><span class="hero-side-note">BASED IN STOCKHOLM · OPEN TO PRODUCT OPPORTUNITIES</span></div></div><div class="hero-bottom-line"><span>01 / PORTFOLIO</span><span>SCROLL TO THE PROJECTS <span aria-hidden="true">↓</span></span></div></section>
- <section class="work-gallery" id="work" aria-label="Featured project gallery"><div class="gallery-top"><span class="eyebrow">SELECTED PROJECTS / SIX STORIES</span><span class="eyebrow">HOVER OR TAP TO EXPLORE ↓</span></div><div class="work-gallery-grid">${projects.map((p,i)=>`<a class="gallery-tile gallery-tile-${i+1} reveal" style="--stagger:${i*90}ms" href="${projectURL(p.id)}" aria-label="View ${esc(p.title)} case study"><div class="gallery-art">${projectArt(p)}</div><div class="gallery-overlay"><span>${esc(p.eyebrow)}</span><strong>${esc(p.title)}</strong><b aria-hidden="true">↗</b></div></a>`).join('')}</div></section>
- <section class="work-section" id="case-studies"><div class="work-section-intro"><div><span class="eyebrow">SELECTED WORK / 2026</span><h2>Work, from the<br><em>inside out.</em></h2></div><p>Not just what I built, but the problems I investigated, the trade-offs I made, and what the evidence did or didn't,show.</p></div>
- <div class="project-list">${projects.map((p,i)=>`<article class="project-feature reveal" id="featured-${esc(p.id)}"><a class="project-feature-visual" href="${projectURL(p.id)}" aria-label="Open ${esc(p.title)} case study">${projectArt(p)}<span class="project-feature-overlay">VIEW CASE STUDY <span>↗</span></span></a><div class="project-feature-copy"><div class="project-feature-overline"><span>${p.ordinal} / ${esc(p.category.toUpperCase())}</span><span>${esc(p.status)}</span></div><div class="project-feature-heading"><h3>${esc(p.title)}</h3><p class="project-tagline">${esc(p.intro)}</p></div><p class="project-description">${esc(p.teaser)}</p><div class="project-feature-meta"><div><span>YEAR</span><strong>${esc(p.year)}</strong></div><div><span>ROLE</span><strong>${esc(p.role)}</strong></div><div><span>SCOPE</span><strong>${esc(p.scope)}</strong></div></div><a href="${projectURL(p.id)}" class="view-case-link">View case study <span>↗</span></a></div></article>`).join('')}</div></section>
- <section class="story-section" id="story"><div class="story-grid"><div class="story-main"><span class="eyebrow">ABOUT / MY STORY</span><h2>Creative by background.<br><em>Practical by experience.</em></h2><p>I started in graphic design, went on to build companies and spent thirteen years running healthcare services in Sweden. Product management brings those worlds together: understanding people, untangling complexity and choosing what matters next.</p><a href="${path('about/')}" class="view-case-link">More about me <span>↗</span></a></div><div class="story-history"><div class="history-label">EXPERIENCE</div><div><strong>Konduko AB</strong><span>Founder & CEO · 2012–2025</span></div><div><strong>NiyaCare</strong><span>Founder · 2011–Present</span></div><div><strong>Apolyto S.A.</strong><span>Graphic Designer → Project Manager</span></div><div><strong>Earlier creative work</strong><span>Consulting · Design · 1998–2011</span></div><a href="${path('cv/')}" class="story-resume">Full CV ↗</a></div></div></section></main>`;
-}
-function about(){
- return `<main><section class="page-hero about-hero"><span class="eyebrow">ABOUT / THE HUMAN BEHIND THE PROJECTS</span><h1>From making<br><em>things look right</em><br>to asking what<br>should exist.</h1><div class="page-hero-bottom"><p>I'm Ioannis Koupidis, a founder, former creative professional and current Product Management student in Stockholm.</p><span class="eyebrow">DESIGN × OPERATIONS × PRODUCT</span></div></section><section class="story-body section-pad"><div class="story-split"><div class="eyebrow">THE SHORT VERSION <span class="accent-asterisk">✳</span></div><div class="story-prose"><p class="story-lead">I have spent much of my working life turning complicated needs into services that people can depend on.</p><p>I started in design, moved into entrepreneurship and spent 13 years building healthcare services in Sweden. That meant contracts, schedules, changing needs and decisions where reliability mattered, not just a good presentation.</p><p>Today I'm studying Product Management at Hyper Island, following UX Design studies at Medieinstitutet. I'm learning to bring user research, product decisions, prototyping and testing into digital products.</p><p>What interests me most hasn't changed: understand the problem before deciding what to build.</p></div></div></section><section class="learning-section section-pad"><div class="section-intro"><span class="eyebrow">THE WORK IN PROGRESS</span><div><h2>Learning to listen<br><em>before I lead.</em></h2><p>During my studies, I've reflected on moments when I moved too quickly toward a solution. I've learned to make more space for other perspectives, test assumptions and help a team reach a better decision, not simply defend my first idea.</p></div></div><div class="learning-three"><article><span>01 /</span><h3>Stay curious.</h3><p>Ask what people are actually trying to achieve, not only which feature they say they want.</p></article><article><span>02 /</span><h3>Make choices visible.</h3><p>Connect priorities to evidence, trade-offs and the constraints that shaped them.</p></article><article><span>03 /</span><h3>Test what matters.</h3><p>Measure the real outcome, including the things a passing test or pretty prototype can miss.</p></article></div></section><section class="section-pad timeline-section"><div class="section-heading-row"><span class="eyebrow">THE PATH SO FAR</span><h2>Experience<span class="heading-mark">↙</span></h2></div><div class="timeline">${experience.map(e=>`<article class="timeline-item reveal"><div class="tl-years">${esc(e.years)}</div><div class="tl-content"><h3>${esc(e.company)}</h3><span class="role">${esc(e.role)}</span><p>${esc(e.details)}</p>${e.evidence?`<div class="evidence-chips">${e.evidence.map(t=>`<span>${esc(t)}</span>`).join('')}</div>`:''}${e.note?`<p class="evidence-note">${esc(e.note)}</p>`:''}</div></article>`).join('')}</div></section><section class="section-pad education-section"><div class="section-heading-row"><span class="eyebrow">LEARNING</span><h2>Education<span class="heading-mark">↙</span></h2></div><div class="timeline">${education.map(e=>`<article class="timeline-item"><div class="tl-years">${esc(e.years)}</div><div class="tl-content"><h3>${esc(e.subject)}</h3><span class="role">${esc(e.school)}</span></div></article>`).join('')}</div><div class="language-bar"><span class="eyebrow">LANGUAGES</span><span>Greek / Native</span><span>Swedish / Fluent</span><span>English / Fluent</span><span>German / Basic</span></div></section></main>`;
-}
-function cv(){
- return `<main><section class="page-hero cv-hero"><span class="eyebrow">CURRICULUM VITAE / 2026</span><h1>Experience in<br><em>service of</em><br>better products.</h1><div class="page-hero-bottom"><p>Founder & Product Management student · Stockholm, Sweden</p><a class="download-btn" href="https://raw.githubusercontent.com/IoannisKP/IoannisK_CV/main/Ioannis-Koupidis-CV.pdf" target="_blank" rel="noopener">Download PDF <span>↓</span></a></div></section><div class="cv-paper"><section class="cv-contact"><div><span class="eyebrow">IOANNIS KOUPIDIS</span><h2>Founder · Product Management</h2><p>Combining 13 years of healthcare service experience in Sweden with user research, product scoping and hands-on AI-assisted development.</p></div><div class="cv-contact-links"><a href="mailto:${person.email}">${person.email}</a><a href="${person.linkedin}" target="_blank" rel="noopener">LinkedIn ↗</a><a href="${person.github}" target="_blank" rel="noopener">GitHub ↗</a><span>Stockholm, Sweden</span></div></section><section class="cv-block"><h3>Experience</h3><div>${experience.map(e=>`<div class="cv-entry"><div><strong>${esc(e.role)}</strong><span>${esc(e.company)}</span><p>${esc(e.details)}</p>${e.note?`<small>${esc(e.note)}</small>`:''}</div><span class="cv-date">${esc(e.years)}</span></div>`).join('')}</div></section><section class="cv-block"><h3>Selected product projects</h3><div>${projects.slice(0,4).map(p=>`<div class="cv-entry"><div><a href="${projectURL(p.id)}"><strong>${esc(p.title)} ↗</strong></a><span>${esc(p.eyebrow)}</span><p>${esc(p.teaser)}</p></div><span class="cv-date">${esc(p.year)}</span></div>`).join('')}</div></section><section class="cv-block"><h3>Education</h3><div>${education.map(e=>`<div class="cv-entry compact"><div><strong>${esc(e.subject)}</strong><span>${esc(e.school)}</span></div><span class="cv-date">${esc(e.years)}</span></div>`).join('')}</div></section><section class="cv-block"><h3>Capabilities</h3><p>User research and synthesis · Problem framing · Product scoping and acceptance criteria · Stakeholder coordination · Workflow design · Figma wireframes · Lovable prototypes · AI-assisted development and manual verification · Service operations</p></section><section class="cv-block"><h3>Languages</h3><p>Greek (native) · Swedish (fluent) · English (fluent) · German (basic)</p></section></div><section class="cv-after"><p>This page gives the longer picture. The downloadable PDF is the concise resume supplied with the original CV. Projects can also be explored in depth.</p><a href="${path('')}#work" class="text-link">Browse case studies ↗</a></section></main>`;
-}
-function chapterMarkup(c,i){return `<section class="chapter reveal" id="chapter-${i+1}" data-chapter="${i+1}"><div class="chapter-num">${String(i+1).padStart(2,'0')} / ${esc(c.label.toUpperCase())}</div><div class="chapter-content"><h2>${esc(c.title)}</h2>${c.body.map(t=>`<p>${esc(t)}</p>`).join('')}${c.take?`<div class="chapter-insight"><span>WHAT THIS MEANS</span><strong>${esc(c.take)}</strong></div>`:''}</div></section>`;}
-function shortMarkup(c,i){return `<section class="chapter chapter-short reveal" id="chapter-${i+1}" data-chapter="${i+1}"><div class="chapter-num">0${i+1} / ${esc(c.label.toUpperCase())}</div><div class="chapter-content"><h2>${esc(c.title)}</h2><p>${esc(c.body)}</p></div></section>`;}
-function caseStudy(p){
- const next=projects[(projects.indexOf(p)+1)%projects.length];
- const defaultMode=new URLSearchParams(location.search).get('view')==='tldr'?'tldr':'full';
- return `<main class="case-page" style="--project-accent:${p.accent};--project-ink:${p.ink}" data-current-mode="${defaultMode}"><div class="case-toolbar"><a href="${path('')}#work" class="case-back">← &nbsp; All work</a><div class="mode-control" role="group" aria-label="Case study reading mode"><button type="button" class="mode-button ${defaultMode==='full'?'selected':''}" data-mode="full" aria-pressed="${defaultMode==='full'}">Full</button><button type="button" class="mode-button ${defaultMode==='tldr'?'selected':''}" data-mode="tldr" aria-pressed="${defaultMode==='tldr'}">TL;DR</button></div><span class="reading-estimate" aria-live="polite">${defaultMode==='full'?'6 MIN READ':'1 MIN READ'}</span></div><section class="case-hero"><span class="eyebrow">${p.ordinal} / ${esc(p.eyebrow.toUpperCase())}</span><h1>${esc(p.title)}<span class="case-hero-star">✳</span></h1><p class="case-subtitle">${esc(p.intro)}</p><div class="case-meta"><div><span>ROLE</span><strong>${esc(p.role)}</strong></div><div><span>YEAR</span><strong>${esc(p.year)}</strong></div><div><span>STATUS</span><strong>${esc(p.status)}</strong></div><div><span>SCOPE</span><strong>${esc(p.scope)}</strong></div></div></section><div class="case-visual-wrap">${projectArt(p,'hero')}</div>${p.id==='hiroom'?`<div class="live-prototype-bar"><span>HIROOM / ACTUAL INTERACTIVE PROTOTYPE</span><a href="https://book-an-island.lovable.app/" target="_blank" rel="noopener noreferrer">Explore the live project <span>↗</span></a></div>`:''}<div class="case-body"><aside class="case-sidebar"><span class="eyebrow">IN THIS STORY</span><nav class="chapter-nav" aria-label="Case study chapters"></nav><span class="sidebar-progress">SCROLL <span>↓</span></span></aside><div class="case-main"><section class="case-intro"><div class="eyebrow">OVERVIEW / THE POINT</div><p>${esc(p.teaser)}</p><div class="case-fact"><strong>${esc(p.highlight.num)}</strong><div><span>${esc(p.highlight.label)}</span><small>${esc(p.highlight.qualifier)}</small></div></div><div class="case-actions">${p.links.map(l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`).join('')}</div>${p.id==='hiroom'?hiroomGalleryMarkup():''}${p.id==='scribe'?`<div class="actual-artifacts scribe-artifacts"><span class="eyebrow">REAL SCRIBE APP INTERFACE</span><div class="actual-gallery"><figure><img src="${path('assets/scribe/scribe-recording.webp')}" alt="Scribe recording screen showing microphone and other audio sources, transcription model and recording controls" loading="lazy"><figcaption>01 / Recording and local transcription settings, genuine product screenshot</figcaption></figure><figure><img src="${path('assets/scribe/scribe-library.webp')}" alt="Scribe session library showing the no recordings yet empty state" loading="lazy"><figcaption>02 / Session library empty state, genuine product screenshot</figcaption></figure></div></div>`:''}</section><div id="chapter-container" class="chapter-container">${(defaultMode==='full'?p.chapters:p.short).map((c,i)=>defaultMode==='full'?chapterMarkup(c,i):shortMarkup(c,i)).join('')}</div><div class="case-end"><span class="eyebrow">THE STORY CONTINUES</span><a href="${projectURL(next.id)}"><span>Next project / ${esc(next.ordinal)}</span><strong>${esc(next.title)} <span>↗</span></strong></a></div></div></div></main>`;
-}
-
-const app = $('#app');
-app.innerHTML = header() + (page==='home'?home():page==='about'?about():page==='cv'?cv():page==='case'&&project?caseStudy(project):`<main class="not-found"><h1>Page not found.</h1><a href="${root}">Back home</a></main>`) + footer();
-
-function setupMenu(){const b=$('.menu-toggle');b?.addEventListener('click',()=>{const open=document.body.classList.toggle('menu-open');b.setAttribute('aria-expanded',String(open));});$$('.nav-link').forEach(l=>l.addEventListener('click',()=>document.body.classList.remove('menu-open')));}
-function setupReveal(){const nodes=$$('.reveal');if(window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)){nodes.forEach(el=>el.classList.add('revealed'));return;}const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');io.unobserve(e.target);}}),{threshold:.08,rootMargin:'0px 0px -50px 0px'});nodes.forEach(n=>io.observe(n));}
-function setupProgress(){const bar=document.createElement('div');bar.className='top-progress';bar.setAttribute('aria-hidden','true');document.body.appendChild(bar);let raf=0;const update=()=>{raf=0;const limit=Math.max(1,document.documentElement.scrollHeight-innerHeight);bar.style.transform=`scaleX(${Math.min(1,scrollY/limit)})`;document.body.classList.toggle('scrolled',scrollY>16);};addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(update)},{passive:true});addEventListener('resize',update);update();}
-function setupCase(){if(page!=='case'||!project)return;const container=$('#chapter-container');const nav=$('.chapter-nav');let mode=$('.case-page').dataset.currentMode;let observer;
- const rebuildNav=()=>{const labels=(mode==='full'?project.chapters:project.short);nav.innerHTML=labels.map((c,i)=>`<a class="chapter-nav-item" href="#chapter-${i+1}"><span>${String(i+1).padStart(2,'0')}</span>${esc(c.label)}</a>`).join('');observer?.disconnect();if('IntersectionObserver' in window){observer=new IntersectionObserver(es=>{const visible=es.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top)[0];if(visible){$$('.chapter-nav-item').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+visible.target.id));}},{rootMargin:'-12% 0px -66% 0px',threshold:0});$$('.chapter').forEach(el=>observer.observe(el));}else{$('.chapter-nav-item')?.classList.add('active');}};
- const updateReadingEstimate=()=>{const content=($('.case-intro')?.innerText||'')+' '+(container?.innerText||'');const words=content.trim().split(/\s+/).length;$('.reading-estimate').textContent=`${Math.max(1,Math.ceil(words/220))} MIN READ`;};
- const setMode=(value)=>{if(value===mode)return;mode=value;$('.case-page').dataset.currentMode=mode;container.classList.add('switching');container.innerHTML=(mode==='full'?project.chapters:project.short).map((c,i)=>mode==='full'?chapterMarkup(c,i):shortMarkup(c,i)).join('');$$('.mode-button').forEach(btn=>{const active=btn.dataset.mode===mode;btn.classList.toggle('selected',active);btn.setAttribute('aria-pressed',String(active));});updateReadingEstimate();const url=new URL(location.href);if(mode==='tldr')url.searchParams.set('view','tldr');else url.searchParams.delete('view');if(location.protocol==='http:' || location.protocol==='https:')history.replaceState(null,'',url.pathname+url.search);rebuildNav();$$('.chapter').forEach(c=>c.classList.add('revealed'));setTimeout(()=>container.classList.remove('switching'),260);const t=$('.case-intro').getBoundingClientRect().top+scrollY-100;if(scrollY>t)scrollTo({top:t,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});};
- $$('.mode-button').forEach(btn=>btn.addEventListener('click',()=>setMode(btn.dataset.mode)));rebuildNav();updateReadingEstimate();}
-
-function setupProjectMotion(){
- if(page!=='home')return;
- const fine=matchMedia('(hover: hover) and (pointer: fine)');
- const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- const cards=$('.gallery-tile, .project-feature-visual');
- cards.forEach(card=>{
-   let raf=0, evt=null;
-   const update=()=>{
-     raf=0;
-     if(!evt||!fine.matches||reduced.matches)return;
-     const b=card.getBoundingClientRect();
-     const x=Math.max(-1,Math.min(1,((evt.clientX-b.left)/Math.max(b.width,1)-0.5)*2));
-     const y=Math.max(-1,Math.min(1,((evt.clientY-b.top)/Math.max(b.height,1)-0.5)*2));
-     card.style.setProperty('--tilt-y',(x*5.5).toFixed(2)+'deg');
-     card.style.setProperty('--tilt-x',(-y*5.5).toFixed(2)+'deg');
-     card.style.setProperty('--pointer-x',(x*9).toFixed(2)+'px');
-     card.style.setProperty('--pointer-y',(y*9).toFixed(2)+'px');
-   };
-   card.addEventListener('pointermove',e=>{evt=e;if(!raf)raf=requestAnimationFrame(update)},{passive:true});
-   card.addEventListener('pointerleave',()=>{
-     evt=null;cancelAnimationFrame(raf);raf=0;
-     card.style.setProperty('--tilt-x','0deg');
-     card.style.setProperty('--tilt-y','0deg');
-     card.style.setProperty('--pointer-x','0px');
-     card.style.setProperty('--pointer-y','0px');
-   });
- });
-}
-
-function setupYear(){/* year printed in footer */}
-setupMenu();setupReveal();setupProjectMotion();setupProgress();setupCase();setupYear();
-
-function setupFooterWords(){
- const word=$('.footer-word');
- if(!word || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
- const choices=['build','design','discover','make']; let i=0;
- const t=setInterval(()=>{if(document.hidden)return;word.classList.add('word-out');setTimeout(()=>{i=(i+1)%choices.length;word.textContent=choices[i];word.classList.remove('word-out');},220);},3300);
- window.addEventListener('pagehide',()=>clearInterval(t),{once:true});
-}
-setupFooterWords();
+setupMenu();
+setupCase();
+// Load the shared entrance and interaction layer after the page markup exists.
+import("./assets/taste-motion/motion.js");
