@@ -11,7 +11,7 @@ export const person = {
 };
 
 export const experience = [
-  { company:'Konduko AB', role:'Founder & CEO', years:'2012 to 2025', details:'Founded and ran a specialist healthcare staffing company serving Swedish public healthcare. Designed the operational system that connected procurement, physician availability, contracts, schedules, invoicing and quality assurance.', evidence:['25+ public procurement contracts','140+ physicians on parallel assignments','Framework coverage across Swedish regions'], note:'Awarded frameworks had an aggregate estimated procurement value above SEK 1.5B. This was not company revenue or guaranteed spending.'},
+  { company:'Konduko AB', role:'Founder', years:'2012 to 2025', details:'Founded and ran a specialist healthcare staffing company serving Swedish public healthcare. Designed the operational system that connected procurement, physician availability, contracts, schedules, invoicing and quality assurance.', evidence:['25+ public procurement contracts','140+ physicians on parallel assignments','Framework coverage across Swedish regions'], note:'Awarded frameworks had an aggregate estimated procurement value above SEK 1.5B. This was not company revenue or guaranteed spending.'},
   { company:'NiyaCare', role:'Founder', years:'2011 to Present', details:'Established a personal assistance company built around understanding individual needs, finding reliable matches and delivering dependable everyday support.'},
   { company:'Apolyto S.A.', role:'Graphic Designer → Project Manager', years:'1998 to 2009', details:'Worked in graphic design and project management.'},
   { company:'Angelos Frentzos S.A.', role:'Creative Consultant', years:'2004 to 2011', details:'Creative consulting.'},

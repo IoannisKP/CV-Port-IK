@@ -16,7 +16,7 @@ Ioannis Koupidis’s product-management portfolio. Static HTML entry points, sha
 
 HIRoom and Scribe use existing authentic screenshots. Radio’s existing screenshot is now stored locally. PM Compass is represented by its documented information architecture, not a fabricated app screenshot. All six project pages remain at their existing URLs.
 
-Project status and evidence limitations remain explicit. Konduko’s estimated aggregate SEK 1.5B+ procurement-framework value is not company revenue. The CV download continues to use the existing PDF in the original portfolio repository.
+Project status and evidence limitations remain explicit. Konduko’s estimated aggregate SEK 1.5B+ procurement-framework value is not company revenue. The CV download is stored locally in this repository.
 
 ## Run and check
 
