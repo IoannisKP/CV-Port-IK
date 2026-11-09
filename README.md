@@ -1,46 +1,33 @@
 # CV Port IK
 
-A portfolio for Ioannis Koupidis, built in a separate repository so the original `IoannisK_CV` website remains untouched.
+Ioannis Koupidis’s product-management portfolio. Static HTML entry points, shared JavaScript and one stylesheet; no production build step.
 
-## Current design
+## Editorial layout
 
-- **Light-first monochrome palette**: off-white, white, charcoal and gray, with automatic dark mode via `prefers-color-scheme: dark`.
-- **Typography**: Manrope is the only font family, including hero headlines, labels and metadata. The hero name uses the same font weight and size as the surrounding text.
-- **Project gallery**: six image-led project tiles with gentle staggered reveals, desktop pointer-responsive movement, and reduced-motion support. The site chrome remains neutral while individual project artwork retains its identity and colors.
-- **Case studies**: each project has its own shareable page with Full and TL;DR reading modes, chapter navigation and reading-time estimates.
-- **Navigation**: Home, Work, About, CV and contact. No standalone Play / Other Experiments section.
+- Warm monochrome interface, Manrope typography and automatic dark mode.
+- Introduction, compact experience band, three featured projects (HIRoom, Scribe, PM Compass), three further projects, background and contact.
+- A genuine HIRoom screen accompanies the introduction. The owner requested a portfolio without a portrait.
+- Case studies open with problem, contribution, decision and evidence. Full and TL;DR modes retain shareable `?view=tldr` URLs. Screens appear beside the relevant chapters in the full version.
+- Mobile navigation supports Escape, focus wrapping and synchronized expanded state. Content does not depend on scroll reveals. A shared motion layer supplies the brief entrance and hover/press feedback, respecting reduced motion.
 
-## Featured projects
+## Content and assets
 
-1. **HIRoom** | Hyper Island room booking prototype, including 10 moderated booking-task participants. Five authentic screenshots are included; the teammate email addresses in one image are blurred.
-2. **Scribe** | macOS meeting recorder, now illustrated with genuine user-provided recording and empty-library screenshots stored in `assets/scribe/`. A documented snapshot reported 283 passing automated tests and four defects found through manual checks.
-3. **Agent X** | UX research, synthesis and wireframe evaluation.
-4. **PM Compass** | private, ongoing product. Not publicly launched.
-5. **TEDx Circles** | community concept and pitch. Not a deployed program.
-6. **Radio** | an eight-hour iOS app build, independent agent review and device testing. A separate review reported four blocking faults, and the iPhone exposed a network problem not seen in the simulator. This is a working build, not a released app.
+`data.js` contains the biography, experience and original project narratives. `app.js` composes pages and handles navigation and reading modes. `styles.css` is the single design system; the earlier override stylesheet has been removed. The unchanged micro-interaction files in `assets/taste-motion/` come from the requested design-taste-frontend toolkit.
 
-The Radio case-study artwork uses an image from the original public portfolio. Scribe now uses two real screenshots of the current macOS UI, not a fabricated interface. HIRoom uses genuine prototype captures. The other project visuals are illustrative compositions in their own palettes. The **site interface itself has no decorative accent color**.
+HIRoom and Scribe use existing authentic screenshots. Radio’s existing screenshot is now stored locally. PM Compass is represented by its documented information architecture, not a fabricated app screenshot. All six project pages remain at their existing URLs.
 
-## Source files
+Project status and evidence limitations remain explicit. Konduko’s estimated aggregate SEK 1.5B+ procurement-framework value is not company revenue. The CV download continues to use the existing PDF in the original portfolio repository.
 
-- `data.js`: biography, experience, project content and Full/TL;DR case-study narratives
-- `app.js`: page composition, gallery and reading-mode interactions
-- `styles.css`: shared baseline component styles
-- `redesign.css`: light/dark palettes, typography and contemporary editorial layout
-- `work/*/index.html`: project-specific pages
+## Run and check
 
-There is no build step. Serve the repository locally with `python3 -m http.server 8000`, then open `http://localhost:8000/`.
+Serve with `python3 -m http.server 8000`, then visit `http://localhost:8000/`.
 
-## GitHub Pages
+For DOM-level regression checks: `npm ci && npm test`. These cover page rendering, local links/assets, headings, menu states and Full/TL;DR transitions. They do not replace real-browser layout or accessibility testing.
 
-In GitHub repository **Settings > Pages**, select deployment from `main` and `/(root)`.
+Before publication, visually review 1440, 1024, 768, 390 and 320px layouts, light/dark mode, keyboard navigation and reduced motion. The automated visual gate could not run in the authoring environment because Chrome did not start; no visual pass is claimed.
 
-Expected public address: https://ioanniskp.github.io/CV-Port-IK/
+## Hosting
 
-The original portfolio remains unchanged. A backup of the state before the current monochrome redesign was created as `backup-before-monochrome-radio`.
+Existing GitHub Pages address: https://ioanniskp.github.io/CV-Port-IK/
 
-## Accuracy and remaining work
-
-The project descriptions distinguish research evidence, prototypes, proposed improvements and finished behavior. Konduko's estimated aggregate SEK 1.5B+ procurement-framework value is **not** company revenue.
-
-Authentic HIRoom screenshots are committed locally, but some other portfolio images are linked from the original public portfolio. Check those links and review responsive layouts in a real browser before relying on the portfolio for job applications.
+Deploy from `main` and `/(root)`. Changes are prepared on a separate branch for review; the original `IoannisK_CV` site is independent.
